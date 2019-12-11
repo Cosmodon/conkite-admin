@@ -38,7 +38,7 @@ class Payments extends React.Component<{
 						},
 						{
 							title: "Date Payment Made",
-							field: "date",
+							field: "date_created",
 							defaultSort: "desc",
 							editable: "always",
 							initialEditValue: () => new Date(),
@@ -47,7 +47,8 @@ class Payments extends React.Component<{
 									value={props.value}
 									onChange={props.onChange}
 								/>
-							)
+							),
+							render: props => new Date(props.date_created).toLocaleDateString(),
 						},
 						{
 							title: "Amount",
