@@ -13,7 +13,7 @@ export default class AppStore {
 		const fn = 'fetchUserPayments';
 		try {
 			this.isPaymentsLoading = true;
-			const data = await API.fetchUserPayments().catch((errors) => {
+			const data = await API.fetchUserPayments({ corrlinksId }).catch((errors) => {
 				console.log(fn, 'there are some API errors', errors);
 			});
 			data && (this.payments = [...removeItemsByFieldValue(this.payments, 'corrlinksId', corrlinksId), ...data]);

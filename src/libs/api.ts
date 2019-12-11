@@ -26,11 +26,11 @@ class API {
     this.api.addMonitor(naviMonitor);
   }
 
-  fetchUserPayments = async (options?) : Promise<any[]>=> {
-    const response = await this.api.get('payments', options);
-  
+  fetchUserPayments = async ({ corrlinksId }, options?): Promise<any[]> => {
+    const response = await this.api.get(`user/${corrlinksId}/payments`, options);
+
     if (response.data && response.data['data']) {
-      const data:[] = (response.data['data'] as []);
+      const data: [] = (response.data['data'] as []);
       return [...data];
     }
     return [];
