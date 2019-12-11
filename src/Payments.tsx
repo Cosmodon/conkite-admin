@@ -3,8 +3,6 @@ import { inject, observer } from "mobx-react";
 import MaterialTable from 'material-table';
 import { DatePicker } from '@material-ui/pickers';
 
-const statuses = ['TRIAL', 'BLOCKED', 'LIVE'].map(a => ({ value: a, text: a }));
-
 @inject("store")
 @observer
 class Payments extends React.Component<{
