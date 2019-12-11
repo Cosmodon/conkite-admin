@@ -26,6 +26,16 @@ class API {
     this.api.addMonitor(naviMonitor);
   }
 
+  fetchUserPayments = async (options?) : Promise<any[]>=> {
+    const response = await this.api.get('payments', options);
+  
+    if (response.data && response.data['data']) {
+      const data:[] = (response.data['data'] as []);
+      return [...data];
+    }
+    return [];
+  }
+
   fetchUsers = async (options?) : Promise<any[]>=> {
     const response = await this.api.get('users', options);
   

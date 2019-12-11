@@ -74,7 +74,7 @@ export function applyAdjustmentOnMutation({ newCSS, elementId, timeoutValue }) {
 export function calculateEarnings(amount, product) {
 	const yearlyEarnings = (parseInt(amount) / 100) * parseFloat(product.interest_rate);
 	const yourEarnings = (yearlyEarnings / 365) * product.tenor;
-	return parseInt(yourEarnings);
+	return parseInt(''+yourEarnings);
 };
 
 export function calculatePortfolioTotals(portfolioItems) {
@@ -108,4 +108,8 @@ export function calculatePortfolioTotals(portfolioItems) {
 let id = 0;
 export function nextId(){
 	return ++id;
+}
+
+export function removeItemsByFieldValue(array: any[], field: string, id: string | number): any[] {
+	return array.filter(a => a[field] !== id);
 }
