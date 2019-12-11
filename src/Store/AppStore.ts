@@ -16,7 +16,7 @@ export default class AppStore {
 			const data = await API.fetchUserPayments({ corrlinksId }).catch((errors) => {
 				console.log(fn, 'there are some API errors', errors);
 			});
-			data && (this.payments = [...removeItemsByFieldValue(this.payments, 'corrlinksId', corrlinksId), ...data]);
+			data && (this.payments = [...removeItemsByFieldValue(this.payments, 'corrlinks_id', corrlinksId), ...data]);
 		} catch (e) {
 			console.log(fn, e);
 		}
