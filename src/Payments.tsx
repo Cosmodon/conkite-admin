@@ -12,7 +12,7 @@ class Payments extends React.Component<{
 }>{
 
 	async componentDidMount() {
-		await this.props.store.app.fetchUserPayments(this.props.user.corrlinksId);
+		await this.props.store.app.fetchUserPayments(this.props.user.corrlinks_id);
 	}
 
 	render() {
