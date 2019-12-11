@@ -16,6 +16,7 @@ class Payments extends React.Component<{
 	}
 
 	render() {
+		const payments = this.props.store.app.payments.filter(a=>a.corrlinks_id===this.props.user.corrlinks_id);
 		return (
 			<React.Fragment>
 
@@ -28,7 +29,7 @@ class Payments extends React.Component<{
 					}}
 					isLoading={this.props.store.app.isPaymentsLoading}
 					title={`Payments`}
-					data={this.props.store.app.payments}
+					data={payments}
 					columns={[
 						{
 							title: "id",
