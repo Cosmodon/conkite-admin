@@ -12,6 +12,7 @@
     "@types/react": "16.9.9",
     "@types/react-dom": "16.9.2",
     "apisauce": "^1.1.1",
+    "formik": "^2.0.7",
     "material-table": "^1.54.1",
     "mobx": "^5.15.0",
     "mobx-react": "^6.1.4",
