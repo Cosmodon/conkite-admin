@@ -9,7 +9,7 @@ class Auth {
   }
 }
 
-const endpoint = 'http://localhost:3000'
+const endpoint = 'https://79d1e5a2.ngrok.io';
 
 class API {
   auth = new Auth();
