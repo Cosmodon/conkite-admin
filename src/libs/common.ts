@@ -113,3 +113,7 @@ export function nextId(){
 export function removeItemsByFieldValue(array: any[], field: string, id: string | number): any[] {
 	return array.filter(a => a[field] !== id);
 }
+
+export function toYYYYMMDD(date){
+	return date.toJSON().substr(0,10);
+}

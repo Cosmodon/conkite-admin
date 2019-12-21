@@ -1,12 +1,18 @@
 import { observable, action } from 'mobx';
 import API from '../libs/api';
-import { removeItemsByFieldValue } from '../libs/common';
+import { removeItemsByFieldValue, toYYYYMMDD } from '../libs/common';
+import PaymentDetails from './InterfacePaymentDetails';
 
 export default class AppStore {
 	@observable isLoadingUsers: boolean = false;
 	@observable users: any[] = [];
 	@observable isPaymentsLoading: boolean = false;
 	@observable payments: any[] = [];
+	@observable paymentNotification: {} = null;
+	@observable isLoading: {} = {
+		users: false,
+		payments: false,
+	}
 
 	@action.bound
 	fetchUserPayments = async (corrlinksId) => {
@@ -25,18 +31,25 @@ export default class AppStore {
 	}
 
 	@action.bound
+	setLoading = async (type, value) => {
+		this.isLoading = Object.assign({}, this.isLoading, { [type]: value });
+	}
+
+	@action.bound
 	fetchUsers = async () => {
 		const fn = 'fetchUsers';
 		try {
-			this.isLoadingUsers = true;
+			this.setLoading('users', true);
+
 			const users = await API.fetchUsers().catch((errors) => {
 				console.log('there are some API errors', errors);
 			});
+			this.setLoading('users', false);
 			users && (this.users = [...users]);
 		} catch (e) {
 			console.log(fn, e);
 		}
-		this.isLoadingUsers = false;
+		this.setLoading('users', false);
 		return null;
 	}
 
@@ -86,4 +99,28 @@ export default class AppStore {
 		}
 		return [];
 	}
+
+	@action.bound
+	submitPayment = async (paymentDetails: PaymentDetails) => {
+		const fn = 'submitPayment';
+
+		try {
+			const user = { corrlinks_id: paymentDetails.corrlinks_id };
+			const payment = Object.assign({}, paymentDetails);
+			delete payment.corrlinks_id;
+			payment.date_created = toYYYYMMDD(payment.date_created);
+			payment.date_subscription_ends = toYYYYMMDD(payment.date_subscription_ends);
+
+			this.isLoadingUsers = true;
+			await API.addUserPayment({ corrlinks_id: user.corrlinks_id, payment });
+			this.isLoadingUsers = false;
+		} catch (e) {
+			console.log(fn, e);
+			this.isLoadingUsers = false;
+			return false;
+		}
+		this.paymentNotification = { message: 'done', type: 'success' };
+		return true;
+	}
+
 }

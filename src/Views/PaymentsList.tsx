@@ -5,7 +5,7 @@ import { DatePicker } from '@material-ui/pickers';
 
 @inject("store")
 @observer
-class Payments extends React.Component<{
+class PaymentsList extends React.Component<{
 	store?,
 	props?,
 	user?,
@@ -72,4 +72,4 @@ class Payments extends React.Component<{
 	}
 }
 
-export default Payments;
+export default PaymentsList;
