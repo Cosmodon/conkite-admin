@@ -2,7 +2,8 @@ import React from 'react';
 import { inject, observer } from "mobx-react";
 import MaterialTable from 'material-table';
 import { DatePicker } from '@material-ui/pickers';
-import { Typography, Select, MenuItem } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
+// import { Select, MenuItem } from '@material-ui/core';
 import Payments from './PaymentsList';
 import { toJS } from 'mobx';
 
@@ -67,22 +68,22 @@ class App extends React.Component<{
 							/>
 						)
 					},
-					{
-						title: "Status",
-						field: "status",
-						defaultSort: "desc",
-						editable: "always",
-						editComponent: props => (
-							<Select
-								value={props.value}
-								onChange={event => {
-									console.log(event);
-									return props.onChange(event.target.value);
-								}}>
-								{statuses.map((a, i) => <MenuItem key={i} value={a.value}>{a.text}</MenuItem>)}
-							</Select>
-						)
-					},
+					// {
+					// 	title: "Status",
+					// 	field: "status",
+					// 	defaultSort: "desc",
+					// 	editable: "always",
+					// 	editComponent: props => (
+					// 		<Select
+					// 			value={props.value}
+					// 			onChange={event => {
+					// 				console.log(event);
+					// 				return props.onChange(event.target.value);
+					// 			}}>
+					// 			{statuses.map((a, i) => <MenuItem key={i} value={a.value}>{a.text}</MenuItem>)}
+					// 		</Select>
+					// 	)
+					// },
 				]}
 				editable={{
 					isEditable: (rowData: any) => true,
