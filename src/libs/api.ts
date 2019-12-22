@@ -9,7 +9,7 @@ class Auth {
   }
 }
 
-const endpoint = 'https://79d1e5a2.ngrok.io';
+const endpoint = 'https://theeblvd.ngrok.io';
 
 class API {
   auth = new Auth();
