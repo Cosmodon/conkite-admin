@@ -144,7 +144,7 @@ function validate(a) {
 	if (!a.name || a.name.lengt < 1) throw new Error('name required');
 	if (!a.date_subscription_ends || !new Date(a.date_subscription_ends).valueOf()) throw new Error('date_subscription_ends must be a valid date');
 	console.log({ a });
-	if (!a.status || statuses.filter(b => b.value === a.status).length === 0) throw new Error(`status must be one of [${statuses.map(a => `${a.value}`).join(', ')}]`);
+	// if (!a.status || statuses.filter(b => b.value === a.status).length === 0) throw new Error(`status must be one of [${statuses.map(a => `${a.value}`).join(', ')}]`);
 	return true;
 }
 
