@@ -2,10 +2,13 @@ import React from 'react';
 import { inject, observer } from "mobx-react";
 import MaterialTable from 'material-table';
 import { DatePicker } from '@material-ui/pickers';
-import { Typography } from '@material-ui/core';
+import { Typography, Select, MenuItem } from '@material-ui/core';
 // import { Select, MenuItem } from '@material-ui/core';
 import Payments from './PaymentsList';
 import { toJS } from 'mobx';
+
+const statuses = ['TRIAL', 'ACTIVE', 'INACTIVE'].map(a => ({ value: a, text: a }));
+
 
 @inject("store")
 @observer
@@ -80,6 +83,22 @@ class App extends React.Component<{
 						field: "location",
 						defaultSort: "desc",
 						editable: "always",
+					},
+					{
+						title: "Status",
+						field: "status",
+						defaultSort: "desc",
+						editable: "always",
+						editComponent: props => (
+							<Select
+								value={props.value}
+								onChange={event => {
+									console.log(event);
+									return props.onChange(event.target.value);
+								}}>
+								{statuses.map((a, i) => <MenuItem key={i} value={a.value}>{a.text}</MenuItem>)}
+							</Select>
+						)
 					},
 				]}
 				editable={{
