@@ -75,22 +75,12 @@ class App extends React.Component<{
 							/>
 						)
 					},
-					// {
-					// 	title: "Status",
-					// 	field: "status",
-					// 	defaultSort: "desc",
-					// 	editable: "always",
-					// 	editComponent: props => (
-					// 		<Select
-					// 			value={props.value}
-					// 			onChange={event => {
-					// 				console.log(event);
-					// 				return props.onChange(event.target.value);
-					// 			}}>
-					// 			{statuses.map((a, i) => <MenuItem key={i} value={a.value}>{a.text}</MenuItem>)}
-					// 		</Select>
-					// 	)
-					// },
+					{
+						title: "Prison",
+						field: "location",
+						defaultSort: "desc",
+						editable: "always",
+					},
 				]}
 				editable={{
 					isEditable: (rowData: any) => true,
@@ -141,8 +131,6 @@ function validate(a) {
 	if (!a.corrlinks_id || ('' + a.corrlinks_id).length < 8) throw new Error('corrlinks_id must be 8 digits long');
 	if (!a.name || a.name.lengt < 1) throw new Error('name required');
 	if (!a.date_subscription_ends || !new Date(a.date_subscription_ends).valueOf()) throw new Error('date_subscription_ends must be a valid date');
-	console.log({ a });
-	// if (!a.status || statuses.filter(b => b.value === a.status).length === 0) throw new Error(`status must be one of [${statuses.map(a => `${a.value}`).join(', ')}]`);
 	return true;
 }
 
