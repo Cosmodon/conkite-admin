@@ -7,8 +7,6 @@ import { Typography } from '@material-ui/core';
 import Payments from './PaymentsList';
 import { toJS } from 'mobx';
 
-const statuses = ['TRIAL', 'BLOCKED', 'LIVE'].map(a => ({ value: a, text: a }));
-
 @inject("store")
 @observer
 class App extends React.Component<{
