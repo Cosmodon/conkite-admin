@@ -1,7 +1,8 @@
 import React from 'react';
 import { inject, observer } from "mobx-react";
 import { DatePicker } from '@material-ui/pickers';
-import { Typography, Table, TableRow, TableCell, MenuItem, Select, TextField, Button, Grid, TableBody, CircularProgress } from '@material-ui/core';
+import { Typography, Table, TableRow, TableCell, TextField, Button, Grid, TableBody, CircularProgress } from '@material-ui/core';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import { Formik, FormikProps } from 'formik';
 import { toJS } from 'mobx';
 
@@ -12,7 +13,8 @@ class PaymentForm extends React.Component<{
 	props?,
 }>{
 	state = {
-		changesDetected: false
+		changesDetected: false,
+		busy: false,
 	}
 
 	async componentDidMount() {
@@ -41,7 +43,10 @@ class PaymentForm extends React.Component<{
 	}
 
 	onSubmit = async (values) => {
+		this.setState(Object.assign({}, this.state, { busy: true }));
 		const result = await this.props.store.app.submitPayment(values);
+		this.setState(Object.assign({}, this.state, { busy: false }));
+
 		if (result) {
 			const message = {
 				type: 'success',
@@ -50,7 +55,7 @@ class PaymentForm extends React.Component<{
 			this.props.store.notifications.addToMessageQueue(message);
 		}
 	}
-	getInitialValues(){
+	getInitialValues() {
 		let date_subscription_ends = new Date();
 		date_subscription_ends.setMonth(date_subscription_ends.getMonth() + 1);
 		return {
@@ -65,7 +70,7 @@ class PaymentForm extends React.Component<{
 	render() {
 		const initialValues = this.getInitialValues();
 		const onSubmit = this.onSubmit;
-		const users = toJS(this.props.store.app.users).sort((a,b)=>(a['corrlinks_id']>b['corrlinks_id']?1:-1));
+		const users = toJS(this.props.store.app.users).sort((a, b) => (a['corrlinks_id'] > b['corrlinks_id'] ? 1 : -1));
 
 		return (
 			<div style={{ width: '500px', margin: '0 auto', textAlign: 'center' }}>
@@ -96,16 +101,25 @@ class PaymentForm extends React.Component<{
 										<TableCell>
 											{this.props.store.app.isLoading.users && <CircularProgress />}
 											{!this.props.store.app.isLoading.users &&
-												<Select
-													required
-													fullWidth
-													name='corrlinks_id'
-													value={props.values.corrlinks_id}
-													onChange={props.handleChange}
-													autoFocus
-												>
-													{users.map(a => <MenuItem value={a.corrlinks_id} key={a.corrlinks_id}>{a.corrlinks_id} - {a.name}</MenuItem>)}
-												</Select>
+												<Autocomplete
+													id="corrlinks_id"
+													onChange={(e) => {
+														e.persist();
+														const value = e.target['dataset'].value;
+														props.setFieldValue("corrlinks_id", value);
+													}}
+													options={users}
+													getOptionLabel={o => `${o.corrlinks_id} ${o.name}`}
+													style={{ width: 300 }}
+													renderInput={params => (
+														<TextField {...params} autoFocus name='corrlinks_id' variant="standard" fullWidth />
+													)}
+													renderOption={o => {
+														return (
+															<div data-value={o.corrlinks_id}>{`${o.corrlinks_id} ${o.name}`}</div>
+														);
+													}}
+												/>
 											}
 											{props.errors.corrlinks_id && props.touched.corrlinks_id && <div>{props.errors.corrlinks_id}</div>}
 										</TableCell>
@@ -159,8 +173,7 @@ class PaymentForm extends React.Component<{
 												alignItems="center"
 											>
 												<Button variant="outlined" onClick={() => window.location.reload()}>Reset</Button>
-												{/* <Button variant="outlined" disabled={!(this.hasChanges(props) && props.isValid)} onClick={(e: any) => props.handleSubmit(e)}>Save & Clear</Button> */}
-												<Button variant="outlined" disabled={!(this.hasChanges(props) && props.isValid)} onClick={(e: any) => props.handleSubmit(e)}>Save & Next</Button>
+												{this.state.busy ? <CircularProgress /> : <Button variant="outlined" disabled={!(this.hasChanges(props) && props.isValid)} onClick={(e: any) => props.handleSubmit(e)}>Save & Next</Button>}
 											</Grid>
 										</TableCell>
 									</TableRow>
