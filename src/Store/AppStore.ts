@@ -9,7 +9,7 @@ export default class AppStore {
 	@observable isPaymentsLoading: boolean = false;
 	@observable payments: any[] = [];
 	@observable paymentNotification: {} = null;
-	@observable isLoading: {} = {
+	@observable isLoading: { users: boolean, payments: boolean } = {
 		users: false,
 		payments: false,
 	}
