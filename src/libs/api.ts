@@ -1,5 +1,4 @@
 import { create } from "apisauce";
-import { inject } from "mobx-react";
 
 class Auth {
   logout(msg) {
