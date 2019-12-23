@@ -8,6 +8,8 @@ import CorrlinksUsers from './CorrlinksUsers';
 import PaymentForm from './PaymentForm';
 import { inject, observer } from 'mobx-react';
 // import LoginForm from './LoginForm';
+import API from '../libs/api';
+import { Select, MenuItem } from '@material-ui/core';
 
 interface TabPanelProps {
 	children?: React.ReactNode;
@@ -50,6 +52,7 @@ class SimpleTabs extends React.Component<{
 		const value = this.props.store.location.hash;
 		return (
 			<div>
+
 				<AppBar position="static">
 					<Tabs value={value} aria-label="simple tabs example">
 						<Tab label="Login" href="#login" {...a11yProps(0)} />
@@ -57,6 +60,17 @@ class SimpleTabs extends React.Component<{
 						<Tab label="Payment Entry Form" href="#payment-form" {...a11yProps(2)} />
 					</Tabs>
 				</AppBar>
+
+				<Select
+					value={API.getEndpoint()}
+					onChange={a => {
+						const v = a.target.value as string;
+						API.setEndpoint(v);
+					}}
+				>
+					{API.getEndpoints().map(a => <MenuItem key={a} value={a}>{a}</MenuItem>)}
+				</Select>
+
 				{/* <TabPanel value={value} index={'login'}>
 					<LoginForm />
 				</TabPanel> */}
@@ -66,6 +80,7 @@ class SimpleTabs extends React.Component<{
 				<TabPanel value={value} index={'payment-form'}>
 					<PaymentForm />
 				</TabPanel>
+
 			</div>
 		);
 	}
