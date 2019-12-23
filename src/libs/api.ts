@@ -9,7 +9,7 @@ class Auth {
   }
 }
 
-export const endpoints:Array<string> = ['https://theeblvd.ngrok.io', 'http://localhost'];
+export const endpoints:Array<string> = ['https://theeblvd.ngrok.io', 'http://localhost:3000'];
 
 class API {
   auth = new Auth();
