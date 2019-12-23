@@ -35,13 +35,22 @@ class App extends React.Component<{
 				isLoading={this.props.store.app.isLoadingUsers}
 				title={`Corrlink Users`}
 				data={this.props.store.app.users}
+				options={{
+					pageSize: 10,
+					search: true,
+					exportButton: true,
+					filtering: true,
+					sorting: true,
+					columnsButton: true,
+				}}
 				columns={[
 					{
+						cellStyle: { width: '10%' },
 						title: "id",
 						field: "corrlinks_id",
 						defaultSort: "desc",
 						editable: "onAdd",
-						type: "numeric" // string with only 0-9, leading 0 allowed
+						type: "numeric", // string with only 0-9, leading 0 allowed
 					},
 					{
 						title: "name",
@@ -124,12 +133,8 @@ class App extends React.Component<{
 						}),
 				}}
 				detailPanel={props =>
-					<Payments user={toJS(props)}/>
+					<Payments user={toJS(props)} />
 				}
-				options={{
-					pageSize: 10,
-					search: true,
-				}}
 			/>
 		);
 	}
