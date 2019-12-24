@@ -61,15 +61,17 @@ class SimpleTabs extends React.Component<{
 					</Tabs>
 				</AppBar>
 
-				<Select
-					value={API.getEndpoint()}
-					onChange={a => {
-						const v = a.target.value as string;
-						API.setEndpoint(v);
-					}}
-				>
-					{API.getEndpoints().map(a => <MenuItem key={a} value={a}>{a}</MenuItem>)}
-				</Select>
+				{window.location.host.includes('localhost') &&
+					<Select
+						value={API.getEndpoint()}
+						onChange={a => {
+							const v = a.target.value as string;
+							API.setEndpoint(v);
+						}}
+					>
+						{API.getEndpoints().map(a => <MenuItem key={a} value={a}>{a}</MenuItem>)}
+					</Select>
+				}
 
 				{/* <TabPanel value={value} index={'login'}>
 					<LoginForm />
