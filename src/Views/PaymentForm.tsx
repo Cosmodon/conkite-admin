@@ -112,7 +112,7 @@ class PaymentForm extends React.Component<{
 													getOptionLabel={o => `${o.corrlinks_id} ${o.name}`}
 													style={{ width: 300 }}
 													renderInput={params => (
-														<TextField {...params} autoFocus name='corrlinks_id' variant="standard" fullWidth />
+														<TextField {...params} name='corrlinks_id' variant="standard" fullWidth />
 													)}
 													renderOption={o => {
 														return (
@@ -131,6 +131,7 @@ class PaymentForm extends React.Component<{
 												required
 												fullWidth
 												name="amount"
+												id="amount"
 												value={props.values.amount}
 												onChange={props.handleChange}
 											/>
