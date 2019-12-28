@@ -79,7 +79,7 @@ class App extends React.Component<{
 						)
 					},
 					{
-						title: "PAID?",
+						title: "Inmate Status",
 						field: "date_subscription_ends",
 						defaultSort: "desc",
 						editable: "never",
@@ -95,7 +95,7 @@ class App extends React.Component<{
 						editable: "always",
 					},
 					{
-						title: "Status",
+						title: "Server Status",
 						field: "status",
 						defaultSort: "desc",
 						editable: "always",
