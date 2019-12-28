@@ -80,6 +80,7 @@ class App extends React.Component<{
 					},
 					{
 						title: "PAID?",
+						field: "date_subscription_ends",
 						defaultSort: "desc",
 						editable: "never",
 						render: props => {
