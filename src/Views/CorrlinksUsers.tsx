@@ -79,6 +79,15 @@ class App extends React.Component<{
 						)
 					},
 					{
+						title: "PAID?",
+						defaultSort: "desc",
+						editable: "never",
+						render: props => {
+							const color = subscribed(props.date_subscription_ends) ? 'red' : 'green';
+							return <Typography style={{ color }}>{color==='red'?'UNPAID':'PAID'}</Typography>;
+						},
+					},
+					{
 						title: "Prison",
 						field: "location",
 						defaultSort: "desc",
