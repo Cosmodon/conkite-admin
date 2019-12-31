@@ -24,6 +24,9 @@ class API {
       }
     };
     this.api.addMonitor(naviMonitor);
+    if (window.location.href.includes('localhost')){
+      this.setEndpoint(endpoints[1]);
+    }
   }
   setEndpoint(endpoint: string) {
     this.api = create({
