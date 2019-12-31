@@ -2,13 +2,10 @@ import React from 'react';
 import { inject, observer } from "mobx-react";
 import MaterialTable from 'material-table';
 import { DatePicker } from '@material-ui/pickers';
-import { Typography, Select, MenuItem } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 // import { Select, MenuItem } from '@material-ui/core';
 import Payments from './PaymentsList';
 import { toJS } from 'mobx';
-
-const statuses = ['TRIAL', 'ACTIVE', 'INACTIVE'].map(a => ({ value: a, text: a }));
-
 
 @inject("store")
 @observer
@@ -85,7 +82,7 @@ class App extends React.Component<{
 						editable: "never",
 						render: props => {
 							const color = subscribed(props.date_subscription_ends) ? 'red' : 'green';
-							return <Typography style={{ color }}>{color==='red'?'UNPAID':'PAID'}</Typography>;
+							return <Typography style={{ color }}>{color === 'red' ? 'UNPAID' : 'PAID'}</Typography>;
 						},
 					},
 					{
@@ -95,21 +92,36 @@ class App extends React.Component<{
 						editable: "always",
 					},
 					{
-						title: "Server Status",
-						field: "status",
+						title: "Release Date",
+						field: "date_release",
 						defaultSort: "desc",
-						editable: "always",
+						editable: "onUpdate",
+						render: props => {
+							return <Typography>{(!props) ? '-' : props.date_release ? new Date(props.date_release).toLocaleDateString() : '-'}</Typography>;
+						},
 						editComponent: props => (
-							<Select
+							<DatePicker
 								value={props.value}
-								onChange={event => {
-									console.log(event);
-									return props.onChange(event.target.value);
-								}}>
-								{statuses.map((a, i) => <MenuItem key={i} value={a.value}>{a.text}</MenuItem>)}
-							</Select>
+								onChange={props.onChange}
+							/>
 						)
 					},
+					// {
+					// 	title: "Server Status",
+					// 	field: "status",
+					// 	defaultSort: "desc",
+					// 	editable: "always",
+					// 	editComponent: props => (
+					// 		<Select
+					// 			value={props.value}
+					// 			onChange={event => {
+					// 				console.log(event);
+					// 				return props.onChange(event.target.value);
+					// 			}}>
+					// 			{statuses.map((a, i) => <MenuItem key={i} value={a.value}>{a.text}</MenuItem>)}
+					// 		</Select>
+					// 	)
+					// },
 				]}
 				editable={{
 					isEditable: (rowData: any) => true,
