@@ -8,11 +8,11 @@ import Payments from './PaymentsList';
 import { toJS } from 'mobx';
 import dateFormat from 'dateformat';
 
-function formatDate(value){
+function formatDate(value) {
 	try {
-		const date = dateFormat(value+'', 'mm/dd/yyyy')
+		const date = dateFormat(value + '', 'mm/dd/yyyy')
 		return date;
-	}catch(e){
+	} catch (e) {
 		return '-';
 	}
 }
@@ -106,7 +106,7 @@ class App extends React.Component<{
 						defaultSort: "desc",
 						editable: "onUpdate",
 						render: props => {
-							return <Typography>{formatDate(props.date_release) }</Typography>;
+							return <Typography>{formatDate(props ? props.date_release : '-')}</Typography>;
 						},
 						editComponent: props => (
 							<DatePicker
