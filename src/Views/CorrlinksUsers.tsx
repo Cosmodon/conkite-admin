@@ -6,7 +6,16 @@ import { Typography } from '@material-ui/core';
 // import { Select, MenuItem } from '@material-ui/core';
 import Payments from './PaymentsList';
 import { toJS } from 'mobx';
+import dateFormat from 'dateformat';
 
+function formatDate(value){
+	try {
+		const date = dateFormat(value+'', 'mm/dd/yyyy')
+		return date;
+	}catch(e){
+		return '-';
+	}
+}
 @inject("store")
 @observer
 class App extends React.Component<{
@@ -66,7 +75,7 @@ class App extends React.Component<{
 						},
 						render: props => {
 							const color = subscribed(props.date_subscription_ends) ? 'red' : 'green';
-							return <Typography style={{ color }}>{new Date(props.date_subscription_ends).toLocaleDateString()}</Typography>;
+							return <Typography style={{ color }}>{formatDate(props.date_subscription_ends)}</Typography>;
 						},
 						editComponent: props => (
 							<DatePicker
@@ -97,7 +106,7 @@ class App extends React.Component<{
 						defaultSort: "desc",
 						editable: "onUpdate",
 						render: props => {
-							return <Typography>{(!props) ? '-' : props.date_release ? new Date(props.date_release).toLocaleDateString() : '-'}</Typography>;
+							return <Typography>{formatDate(props.date_release) }</Typography>;
 						},
 						editComponent: props => (
 							<DatePicker
