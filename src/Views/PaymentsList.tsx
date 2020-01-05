@@ -2,6 +2,7 @@ import React from 'react';
 import { inject, observer } from "mobx-react";
 import MaterialTable from 'material-table';
 import { DatePicker } from '@material-ui/pickers';
+import { formatDate } from '../libs/common';
 
 @inject("store")
 @observer
@@ -16,16 +17,15 @@ class PaymentsList extends React.Component<{
 	}
 
 	render() {
-		const payments = this.props.store.app.payments.filter(a=>a.corrlinks_id===this.props.user.corrlinks_id);
+		const payments = this.props.store.app.payments.filter(a => a.corrlinks_id === this.props.user.corrlinks_id);
 		return (
 			<React.Fragment>
 
 				<MaterialTable
-					style={{width:'75%', margin:'0 auto'}}
+					style={{ width: '75%', margin: '0 auto' }}
 					options={{
 						pageSize: 5,
 						search: false,
-						
 					}}
 					isLoading={this.props.store.app.isPaymentsLoading}
 					title={`Payments`}
@@ -49,7 +49,7 @@ class PaymentsList extends React.Component<{
 									onChange={props.onChange}
 								/>
 							),
-							render: props => new Date(props.date_created).toLocaleDateString(),
+							render: props => { formatDate(props ? props.date_created : '-') },
 						},
 						{
 							title: "Amount",
@@ -66,7 +66,6 @@ class PaymentsList extends React.Component<{
 						},
 					]}
 				/>
-
 			</React.Fragment>
 		);
 	}

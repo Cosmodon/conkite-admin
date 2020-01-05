@@ -1,3 +1,4 @@
+import dateFormat from 'dateformat';
 
 export function sendNotification(message, type = 'success') {
 	window.dispatchEvent(new CustomEvent('nbmessage', { detail: { message, type } }));
@@ -116,4 +117,13 @@ export function removeItemsByFieldValue(array: any[], field: string, id: string 
 
 export function toYYYYMMDD(date){
 	return date.toJSON().substr(0,10);
+}
+
+export function formatDate(value) {
+	try {
+		const date = dateFormat(value + '', 'mm/dd/yyyy')
+		return date;
+	} catch (e) {
+		return '-';
+	}
 }

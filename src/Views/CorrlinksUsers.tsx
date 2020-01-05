@@ -6,16 +6,8 @@ import { Typography } from '@material-ui/core';
 // import { Select, MenuItem } from '@material-ui/core';
 import Payments from './PaymentsList';
 import { toJS } from 'mobx';
-import dateFormat from 'dateformat';
+import { formatDate } from '../libs/common';
 
-function formatDate(value) {
-	try {
-		const date = dateFormat(value + '', 'mm/dd/yyyy')
-		return date;
-	} catch (e) {
-		return '-';
-	}
-}
 @inject("store")
 @observer
 class App extends React.Component<{
