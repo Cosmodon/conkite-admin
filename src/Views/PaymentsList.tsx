@@ -49,7 +49,7 @@ class PaymentsList extends React.Component<{
 									onChange={props.onChange}
 								/>
 							),
-							render: props => { formatDate(props ? props.date_created : '-') },
+							render: props => formatDate(props ? props.date_created : '-') ,
 						},
 						{
 							title: "Amount",
