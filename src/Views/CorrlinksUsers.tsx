@@ -6,7 +6,7 @@ import { Typography } from "@material-ui/core";
 // import { Select, MenuItem } from '@material-ui/core';
 import Payments from "./PaymentsList";
 import { toJS } from "mobx";
-import { formatDate, formatDateMMDDYYYYfromYYYYMMDD, correctTimezone, saveChangeCurry } from "../libs/common";
+import { formatDate, formatDateMMDDYYYYfromYYYYMMDD, correctTimezone, saveChangeDateCurry } from "../libs/common";
 
 @inject("store")
 @observer
@@ -80,7 +80,7 @@ class App extends React.Component<{
 							);
 						},
 						editComponent: props => {
-							return <DatePicker value={correctTimezone(props.value)} onChange={saveChangeCurry(props)} />
+							return <DatePicker value={correctTimezone(props.value)} onChange={saveChangeDateCurry(props)} />
 						}
 					},
 					{
@@ -113,13 +113,13 @@ class App extends React.Component<{
 						render: props => {
 							return (
 								<Typography>
-									{formatDate(props ? props.date_release : "-")}
+									{formatDate(props ? formatDateMMDDYYYYfromYYYYMMDD(props.date_release) : "-")}
 								</Typography>
 							);
 						},
-						editComponent: props => (
-							<DatePicker value={props.value} onChange={props.onChange} />
-						)
+						editComponent: props => {
+							return <DatePicker value={correctTimezone(props.value)} onChange={saveChangeDateCurry(props)} />
+						}
 					}
 					// {
 					// 	title: "Server Status",

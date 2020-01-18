@@ -152,6 +152,7 @@ export function formatDate(value) {
 }
 
 export function formatDateMMDDYYYYfromYYYYMMDD(value) {
+	if (!value) return '-';
 	value = value.substr(0,10);
 	const [y, m, d] = value.split("-");
 	return [m, d, y].join("/");
@@ -165,6 +166,6 @@ export function correctTimezone(value) {
 	return propDate;
 }
 
-export function saveChangeCurry(props) {
+export function saveChangeDateCurry(props) {
 	return value => props.onChange(value.toISOString().substr(0, 10));
 }
