@@ -55,9 +55,9 @@ class SimpleTabs extends React.Component<{
 
 				<AppBar position="static">
 					<Tabs value={value} aria-label="simple tabs example">
-						<Tab label="Login" href="#login" {...a11yProps(0)} />
-						<Tab label="Corrlinks Users" href="#corrlinks-users" {...a11yProps(1)} />
-						<Tab label="Payment Entry Form" href="#payment-form" {...a11yProps(2)} />
+						<Tab label="Login" value="login" href="#login" {...a11yProps(0)} />
+						<Tab label="Corrlinks Users" value="corrlinks-users" href="#corrlinks-users" {...a11yProps(1)} />
+						<Tab label="Payment Entry Form" value="payment-form" href="#payment-form" {...a11yProps(2)} />
 					</Tabs>
 				</AppBar>
 
