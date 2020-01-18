@@ -2,7 +2,7 @@ import React from "react";
 import { inject, observer } from "mobx-react";
 import MaterialTable from "material-table";
 import { DatePicker } from "@material-ui/pickers";
-import { formatDate } from "../libs/common";
+import { formatDate, formatDateMMDDYYYYfromYYYYMMDD } from "../libs/common";
 
 @inject("store")
 @observer
@@ -46,7 +46,7 @@ class PaymentsList extends React.Component<{
 							editComponent: props => (
 								<DatePicker value={props.value} onChange={props.onChange} />
 							),
-							render: props => formatDate(props ? props.date_created : "-")
+							render: props => formatDateMMDDYYYYfromYYYYMMDD(props.date_created)
 						},
 						{
 							title: "Amount",

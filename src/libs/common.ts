@@ -150,3 +150,8 @@ export function formatDate(value) {
 		return "-";
 	}
 }
+
+export function formatDateMMDDYYYYfromYYYYMMDD(value){
+	const [y,m,d] = value.split('-');
+	return [d,m,y].join('/');
+}
