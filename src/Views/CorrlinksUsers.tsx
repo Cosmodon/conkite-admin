@@ -6,7 +6,7 @@ import { Typography } from "@material-ui/core";
 // import { Select, MenuItem } from '@material-ui/core';
 import Payments from "./PaymentsList";
 import { toJS } from "mobx";
-import { formatDate } from "../libs/common";
+import { formatDate, formatDateMMDDYYYYfromYYYYMMDD, correctTimezone, saveChangeCurry } from "../libs/common";
 
 @inject("store")
 @observer
@@ -75,13 +75,13 @@ class App extends React.Component<{
 								: "green";
 							return (
 								<Typography style={{ color }}>
-									{formatDate(props.date_subscription_ends)}
+									{formatDateMMDDYYYYfromYYYYMMDD(props.date_subscription_ends)}
 								</Typography>
 							);
 						},
-						editComponent: props => (
-							<DatePicker value={props.value} onChange={props.onChange} />
-						)
+						editComponent: props => {
+							return <DatePicker value={correctTimezone(props.value)} onChange={saveChangeCurry(props)} />
+						}
 					},
 					{
 						title: "Inmate Status",

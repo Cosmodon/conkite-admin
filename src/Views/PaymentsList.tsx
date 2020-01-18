@@ -2,7 +2,7 @@ import React from "react";
 import { inject, observer } from "mobx-react";
 import MaterialTable from "material-table";
 import { DatePicker } from "@material-ui/pickers";
-import { formatDate, formatDateMMDDYYYYfromYYYYMMDD } from "../libs/common";
+import { formatDateMMDDYYYYfromYYYYMMDD } from "../libs/common";
 
 @inject("store")
 @observer

@@ -151,7 +151,19 @@ export function formatDate(value) {
 	}
 }
 
-export function formatDateMMDDYYYYfromYYYYMMDD(value){
-	const [y,m,d] = value.split('-');
-	return [d,m,y].join('/');
+export function formatDateMMDDYYYYfromYYYYMMDD(value) {
+	const [y, m, d] = value.split("-");
+	return [m, d, y].join("/");
+}
+
+export function correctTimezone(value) {
+	const currentDate = new Date();
+	const tzOffset = currentDate.getTimezoneOffset();
+	const propDate = new Date(value);
+	propDate.setHours(propDate.getHours() + tzOffset / 60);
+	return propDate;
+}
+
+export function saveChangeCurry(props) {
+	return value => props.onChange(value.toISOString().substr(0, 10));
 }
