@@ -15,7 +15,7 @@
     "apisauce": "^1.1.1",
     "dateformat": "^3.0.3",
     "formik": "^2.0.7",
-    "material-table": "^1.54.1",
+    "material-table": "^1.55.0",
     "mobx": "^5.15.0",
     "mobx-react": "^6.1.4",
     "mobx-router": "^0.0.20",
