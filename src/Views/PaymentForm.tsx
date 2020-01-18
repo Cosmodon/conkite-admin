@@ -23,8 +23,8 @@ class PaymentForm extends React.Component<{
 	props?;
 }> {
 	state = {
-		changesDetected: false,
-		busy: false
+		busy: false,
+		initialValues: this.getInitialValues()
 	};
 
 	async componentDidMount() {
@@ -57,29 +57,23 @@ class PaymentForm extends React.Component<{
 	};
 
 	hasChanges = formikProps => {
-		if (this.state.changesDetected) return true;
-		if (
-			JSON.stringify(formikProps.values) !==
-			JSON.stringify(formikProps.initialValues)
-		) {
-			this.setState({ changesDetected: true });
-			return true;
-		}
-		return false;
+		return JSON.stringify(formikProps.values) !== JSON.stringify(formikProps.initialValues);
 	};
 
-	onSubmit = async values => {
+	onSubmit = async (values, props) => {
 		this.setState(Object.assign({}, this.state, { busy: true }));
 		const result = await this.props.store.app.submitPayment(values);
 		this.setState(Object.assign({}, this.state, { busy: false }));
 
-		if (result) {
+			if (result) {
 			const message = {
 				type: "success",
 				message: "Saved!"
 			};
 			this.props.store.notifications.addToMessageQueue(message);
 		}
+
+		Object.assign(this.state.initialValues, values);
 	};
 	getInitialValues() {
 		let date_subscription_ends = new Date();
@@ -94,8 +88,6 @@ class PaymentForm extends React.Component<{
 	}
 
 	render() {
-		const initialValues = this.getInitialValues();
-		const onSubmit = this.onSubmit;
 		const users = toJS(this.props.store.app.users).sort((a, b) =>
 			a["corrlinks_id"] > b["corrlinks_id"] ? 1 : -1
 		);
@@ -104,8 +96,9 @@ class PaymentForm extends React.Component<{
 			<div style={{ width: "500px", margin: "0 auto", textAlign: "center" }}>
 				<Typography variant="h5">Enter Payments</Typography>
 				<Formik
-					initialValues={initialValues}
-					onSubmit={onSubmit}
+					enableReinitialize
+					initialValues={this.state.initialValues}
+					onSubmit={this.onSubmit}
 					validate={this.validate}
 				>
 					{(props: FormikProps<any>) => {
