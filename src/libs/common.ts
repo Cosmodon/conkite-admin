@@ -152,6 +152,7 @@ export function formatDate(value) {
 }
 
 export function formatDateMMDDYYYYfromYYYYMMDD(value) {
+	value = value.substr(0,10);
 	const [y, m, d] = value.split("-");
 	return [m, d, y].join("/");
 }
