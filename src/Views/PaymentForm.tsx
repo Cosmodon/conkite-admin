@@ -86,9 +86,9 @@ class PaymentForm extends React.Component<{
 		date_subscription_ends.setMonth(date_subscription_ends.getMonth() + 1);
 		return {
 			date_created: new Date(),
-			amount: null,
+			amount: 0,
 			comment: "",
-			corrlinks_id: null,
+			corrlinks_id: "",
 			date_subscription_ends
 		};
 	}
@@ -107,7 +107,8 @@ class PaymentForm extends React.Component<{
 					initialValues={initialValues}
 					onSubmit={onSubmit}
 					validate={this.validate}
-					render={(props: FormikProps<any>) => {
+				>
+					{(props: FormikProps<any>) => {
 						return (
 							<React.Fragment>
 								<Table>
@@ -252,7 +253,7 @@ class PaymentForm extends React.Component<{
 							</React.Fragment>
 						);
 					}}
-				/>
+				</Formik>
 			</div>
 		);
 	}
