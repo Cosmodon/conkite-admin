@@ -1,15 +1,15 @@
-import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import CorrlinksUsers from './CorrlinksUsers';
-import PaymentForm from './PaymentForm';
-import { inject, observer } from 'mobx-react';
+import React from "react";
+import AppBar from "@material-ui/core/AppBar";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
+import CorrlinksUsers from "./CorrlinksUsers";
+import PaymentForm from "./PaymentForm";
+import { inject, observer } from "mobx-react";
 // import LoginForm from './LoginForm';
-import API from '../libs/api';
-import { Select, MenuItem } from '@material-ui/core';
+import API from "../libs/api";
+import { Select, MenuItem } from "@material-ui/core";
 
 interface TabPanelProps {
 	children?: React.ReactNode;
@@ -37,31 +37,40 @@ function TabPanel(props: TabPanelProps) {
 function a11yProps(index: any) {
 	return {
 		id: `simple-tab-${index}`,
-		'aria-controls': `simple-tabpanel-${index}`,
+		"aria-controls": `simple-tabpanel-${index}`
 	};
 }
 
 @inject("store")
 @observer
 class SimpleTabs extends React.Component<{
-	store?,
-	props?,
-}>{
-	handleChange = () => console.log
+	store?;
+	props?;
+}> {
+	handleChange = () => console.log;
 	render() {
 		const value = this.props.store.location.hash;
 		return (
 			<div>
-
 				<AppBar position="static">
 					<Tabs value={value} aria-label="simple tabs example">
 						<Tab label="Login" value="login" href="#login" {...a11yProps(0)} />
-						<Tab label="Corrlinks Users" value="corrlinks-users" href="#corrlinks-users" {...a11yProps(1)} />
-						<Tab label="Payment Entry Form" value="payment-form" href="#payment-form" {...a11yProps(2)} />
+						<Tab
+							label="Corrlinks Users"
+							value="corrlinks-users"
+							href="#corrlinks-users"
+							{...a11yProps(1)}
+						/>
+						<Tab
+							label="Payment Entry Form"
+							value="payment-form"
+							href="#payment-form"
+							{...a11yProps(2)}
+						/>
 					</Tabs>
 				</AppBar>
 
-				{window.location.host.includes('localhost') &&
+				{window.location.host.includes("localhost") && (
 					<Select
 						value={API.getEndpoint()}
 						onChange={a => {
@@ -69,20 +78,23 @@ class SimpleTabs extends React.Component<{
 							API.setEndpoint(v);
 						}}
 					>
-						{API.getEndpoints().map(a => <MenuItem key={a} value={a}>{a}</MenuItem>)}
+						{API.getEndpoints().map(a => (
+							<MenuItem key={a} value={a}>
+								{a}
+							</MenuItem>
+						))}
 					</Select>
-				}
+				)}
 
 				{/* <TabPanel value={value} index={'login'}>
 					<LoginForm />
 				</TabPanel> */}
-				<TabPanel value={value} index={'corrlinks-users'}>
+				<TabPanel value={value} index={"corrlinks-users"}>
 					<CorrlinksUsers />
 				</TabPanel>
-				<TabPanel value={value} index={'payment-form'}>
+				<TabPanel value={value} index={"payment-form"}>
 					<PaymentForm />
 				</TabPanel>
-
 			</div>
 		);
 	}

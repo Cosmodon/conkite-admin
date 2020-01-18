@@ -1,29 +1,33 @@
-import React from 'react';
+import React from "react";
 import { inject, observer } from "mobx-react";
-import MaterialTable from 'material-table';
-import { DatePicker } from '@material-ui/pickers';
-import { Typography } from '@material-ui/core';
+import MaterialTable from "material-table";
+import { DatePicker } from "@material-ui/pickers";
+import { Typography } from "@material-ui/core";
 // import { Select, MenuItem } from '@material-ui/core';
-import Payments from './PaymentsList';
-import { toJS } from 'mobx';
-import { formatDate } from '../libs/common';
+import Payments from "./PaymentsList";
+import { toJS } from "mobx";
+import { formatDate } from "../libs/common";
 
 @inject("store")
 @observer
 class App extends React.Component<{
-	store?,
-	props?,
-}>{
-
+	store?;
+	props?;
+}> {
 	async componentDidMount() {
 		await this.props.store.app.fetchUsers();
 	}
 
 	render() {
 		const extractDatePart = value => {
-			return (new Date(value).toJSON() || '').substr(0, 10);
-		}
-		const toInt = value => parseInt(extractDatePart(value).split('-').join(''));
+			return (new Date(value).toJSON() || "").substr(0, 10);
+		};
+		const toInt = value =>
+			parseInt(
+				extractDatePart(value)
+					.split("-")
+					.join("")
+			);
 		const subscribed = value => {
 			let subdate = toInt(value);
 			let todaydate = toInt(new Date());
@@ -40,22 +44,22 @@ class App extends React.Component<{
 					exportButton: true,
 					filtering: true,
 					sorting: true,
-					columnsButton: true,
+					columnsButton: true
 				}}
 				columns={[
 					{
-						cellStyle: { width: '10%' },
+						cellStyle: { width: "10%" },
 						title: "id",
 						field: "corrlinks_id",
 						defaultSort: "desc",
 						editable: "onAdd",
-						type: "numeric", // string with only 0-9, leading 0 allowed
+						type: "numeric" // string with only 0-9, leading 0 allowed
 					},
 					{
 						title: "name",
 						field: "name",
 						defaultSort: "desc",
-						editable: "always",
+						editable: "always"
 					},
 					{
 						title: "subscription end date",
@@ -66,14 +70,17 @@ class App extends React.Component<{
 							return new Date();
 						},
 						render: props => {
-							const color = subscribed(props.date_subscription_ends) ? 'red' : 'green';
-							return <Typography style={{ color }}>{formatDate(props.date_subscription_ends)}</Typography>;
+							const color = subscribed(props.date_subscription_ends)
+								? "red"
+								: "green";
+							return (
+								<Typography style={{ color }}>
+									{formatDate(props.date_subscription_ends)}
+								</Typography>
+							);
 						},
 						editComponent: props => (
-							<DatePicker
-								value={props.value}
-								onChange={props.onChange}
-							/>
+							<DatePicker value={props.value} onChange={props.onChange} />
 						)
 					},
 					{
@@ -82,15 +89,21 @@ class App extends React.Component<{
 						defaultSort: "desc",
 						editable: "never",
 						render: props => {
-							const color = subscribed(props.date_subscription_ends) ? 'red' : 'green';
-							return <Typography style={{ color }}>{color === 'red' ? 'UNPAID' : 'PAID'}</Typography>;
-						},
+							const color = subscribed(props.date_subscription_ends)
+								? "red"
+								: "green";
+							return (
+								<Typography style={{ color }}>
+									{color === "red" ? "UNPAID" : "PAID"}
+								</Typography>
+							);
+						}
 					},
 					{
 						title: "Prison",
 						field: "location",
 						defaultSort: "desc",
-						editable: "always",
+						editable: "always"
 					},
 					{
 						title: "Release Date",
@@ -98,15 +111,16 @@ class App extends React.Component<{
 						defaultSort: "desc",
 						editable: "onUpdate",
 						render: props => {
-							return <Typography>{formatDate(props ? props.date_release : '-')}</Typography>;
+							return (
+								<Typography>
+									{formatDate(props ? props.date_release : "-")}
+								</Typography>
+							);
 						},
 						editComponent: props => (
-							<DatePicker
-								value={props.value}
-								onChange={props.onChange}
-							/>
+							<DatePicker value={props.value} onChange={props.onChange} />
 						)
-					},
+					}
 					// {
 					// 	title: "Server Status",
 					// 	field: "status",
@@ -132,7 +146,10 @@ class App extends React.Component<{
 							const corrlinks_id = oldData.corrlinks_id;
 							try {
 								validate(newData);
-								await this.props.store.app.updateUser({ corrlinks_id, user: newData });
+								await this.props.store.app.updateUser({
+									corrlinks_id,
+									user: newData
+								});
 								resolve();
 							} catch (e) {
 								reject();
@@ -141,7 +158,9 @@ class App extends React.Component<{
 					onRowDelete: oldData =>
 						new Promise(async (resolve, reject) => {
 							try {
-								await this.props.store.app.deleteUser({ corrlinks_id: oldData.corrlinks_id });
+								await this.props.store.app.deleteUser({
+									corrlinks_id: oldData.corrlinks_id
+								});
 								resolve();
 							} catch (e) {
 								console.log(e);
@@ -157,22 +176,25 @@ class App extends React.Component<{
 								resolve();
 							} catch (e) {
 								console.log(e);
-								alert(e)
+								alert(e);
 								reject();
 							}
-						}),
+						})
 				}}
-				detailPanel={props =>
-					<Payments user={toJS(props)} />
-				}
+				detailPanel={props => <Payments user={toJS(props)} />}
 			/>
 		);
 	}
 }
 function validate(a) {
-	if (!a.corrlinks_id || ('' + a.corrlinks_id).length < 8) throw new Error('corrlinks_id must be 8 digits long');
-	if (!a.name || a.name.lengt < 1) throw new Error('name required');
-	if (!a.date_subscription_ends || !new Date(a.date_subscription_ends).valueOf()) throw new Error('date_subscription_ends must be a valid date');
+	if (!a.corrlinks_id || ("" + a.corrlinks_id).length < 8)
+		throw new Error("corrlinks_id must be 8 digits long");
+	if (!a.name || a.name.lengt < 1) throw new Error("name required");
+	if (
+		!a.date_subscription_ends ||
+		!new Date(a.date_subscription_ends).valueOf()
+	)
+		throw new Error("date_subscription_ends must be a valid date");
 	return true;
 }
 
