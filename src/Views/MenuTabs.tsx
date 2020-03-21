@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import CorrlinksUsers from "./CorrlinksUsers";
 import PaymentForm from "./PaymentForm";
+import Phonebook from "./Phonebook";
 import { inject, observer } from "mobx-react";
 // import LoginForm from './LoginForm';
 import API from "../libs/api";
@@ -67,6 +68,12 @@ class SimpleTabs extends React.Component<{
 							href="#payment-form"
 							{...a11yProps(2)}
 						/>
+						<Tab
+							label="Phonebooks"
+							value="phonebooks"
+							href="#phonebooks"
+							{...a11yProps(3)}
+						/>
 					</Tabs>
 				</AppBar>
 
@@ -94,6 +101,9 @@ class SimpleTabs extends React.Component<{
 				</TabPanel>
 				<TabPanel value={value} index={"payment-form"}>
 					<PaymentForm />
+				</TabPanel>
+				<TabPanel value={value} index={"phonebooks"}>
+					<Phonebook />
 				</TabPanel>
 			</div>
 		);
