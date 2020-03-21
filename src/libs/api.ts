@@ -93,6 +93,17 @@ class API {
 		);
 		return result;
 	};
+
+	fetchPhonebookEntries = async ({corrlinksId}, options?): Promise<any[]> => {
+		const response = await this.api.get(`phonebook/${corrlinksId}`, options);
+
+		if (response.data && response.data["data"]) {
+			const data: [] = response.data["data"] as [];
+			return [...data];
+		}
+		return [];
+	};
+
 }
 
 export default new API();

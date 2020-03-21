@@ -1,43 +1,37 @@
 import React, { useState, useEffect } from "react";
 import MaterialTable from "material-table";
 import { Select, MenuItem } from "@material-ui/core";
-import { useUserStore } from "../Store/hooks";
+import { useUserStore, usePhonebookStore } from "../Store/hooks";
 import UserStore from "../Store/UserStore";
 import { useObserver } from "mobx-react-lite";
-
-class PhonebookEntry {
-	line_id: number;
-	label: string;
-	mobile: string;
-}
-
-class Phonebook {
-	entries: Array<PhonebookEntry> = [];
-}
+import { PhonebookEntry } from "../Store/Phonebook";
+import PhonebookStore from "../Store/PhonebookStore";
 
 interface Props {
 	corrlinks_id?: string;
 }
 
 const PhonebookUI: React.FC<Props> = props => {
-	const [selectedUser, setUser] = useState<String>("");
-	const store: UserStore = useUserStore();
-	let phonebook: Phonebook[] = [];
+	const [selectedUser, setUser] = useState<String>(props.corrlinks_id || "");
+	const [debounce, setDebounce] = useState<String>("");
+	const userStore: UserStore = useUserStore();
+	const phonebookStore: PhonebookStore = usePhonebookStore();
 
-	useEffect(() => {});
+	useEffect(() => {
+		if (selectedUser && (selectedUser!==debounce)) {
+			phonebookStore.fetchPhonebookEntries(selectedUser);
+			setDebounce(selectedUser);
+		}
+	});
 
 	return useObserver(() => {
-		const users = store.users
-			.slice()
-			.sort((a, b) => (a.name > b.name ? 1 : -1));
+		const users = userStore.users.slice().sort((a, b) => (a.name > b.name ? 1 : -1));
+		const usersIdx = users.reduce((a, c) => Object.assign(a, { [c.corrlinks_id]: c }), {});
+
 
 		return (
 			<React.Fragment>
-				<Select
-					onChange={e => setUser("" + e.target.value)}
-					value={selectedUser}
-					displayEmpty
-				>
+				<Select onChange={e => setUser("" + e.target.value)} value={selectedUser} displayEmpty>
 					<MenuItem value="" disabled>
 						<em>Select a Corrlinks User</em>
 					</MenuItem>
@@ -51,9 +45,9 @@ const PhonebookUI: React.FC<Props> = props => {
 				</Select>
 				{selectedUser !== "" && (
 					<MaterialTable
-						// isLoading={this.props.store.app.isLoadingUsers}
-						title={`Phonebook`}
-						data={phonebook}
+						isLoading={userStore.isLoading}
+						title={`Phonebook: ${usersIdx["" + selectedUser]?.name || 'UNKNOWN'}`}
+						data={phonebookStore.entries}
 						options={{
 							pageSize: 15,
 							// exportButton: true,
@@ -65,7 +59,7 @@ const PhonebookUI: React.FC<Props> = props => {
 							{
 								title: "line",
 								field: "line_id",
-								defaultSort: "desc",
+								defaultSort: "asc",
 								editable: "never"
 							},
 							{
@@ -82,21 +76,22 @@ const PhonebookUI: React.FC<Props> = props => {
 						]}
 						editable={
 							{
-								// isEditable: (rowData: any) => true,
-								// onRowUpdate: (newData, oldData) =>
-								// 	new Promise(async (resolve, reject) => {
-								// 		const corrlinks_id = oldData.corrlinks_id;
-								// 		try {
-								// 			validate(newData);
-								// 			await this.props.store.app.updateUser({
-								// 				corrlinks_id,
-								// 				user: newData
-								// 			});
-								// 			resolve();
-								// 		} catch (e) {
-								// 			reject();
-								// 		}
-								// 	})
+								isEditable: (rowData: any) => true,
+								onRowUpdate: (newData, oldData) =>
+									new Promise(async (resolve, reject) => {
+										const corrlinks_id = oldData.corrlinks_id;
+										try {
+											const entry: PhonebookEntry = new PhonebookEntry(newData);
+											if (!entry.isValid()){
+												alert(entry.errors.join('\n'));
+												reject();
+											}
+											// await phonebookStore.updatePhonebookEntry({corrlinks_id, entry});
+											resolve();
+										} catch (e) {
+											reject();
+										}
+									})
 							}
 						}
 					/>
