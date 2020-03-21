@@ -13,12 +13,14 @@ import AppStore from "./Store/AppStore";
 import LocationStore from "./Store/LocationStore";
 import NotificationStore from "./Store/NotificationStore";
 import UserStore from "./Store/UserStore";
+import PhonebookStore from "./Store/PhonebookStore";
 
 export const store = {
 	app: new AppStore(),
 	location: new LocationStore(),
 	notifications: new NotificationStore(),
-	user: new UserStore()
+	user: new UserStore(),
+	phonebook: new PhonebookStore(),
 };
 
 ReactDOM.render(
