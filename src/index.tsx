@@ -12,11 +12,13 @@ import MessageSnackbar from "./Views/MessageSnackbar";
 import AppStore from "./Store/AppStore";
 import LocationStore from "./Store/LocationStore";
 import NotificationStore from "./Store/NotificationStore";
+import UserStore from "./Store/UserStore";
 
 export const store = {
 	app: new AppStore(),
 	location: new LocationStore(),
-	notifications: new NotificationStore()
+	notifications: new NotificationStore(),
+	user: new UserStore()
 };
 
 ReactDOM.render(
