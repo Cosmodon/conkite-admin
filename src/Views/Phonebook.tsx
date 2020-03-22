@@ -23,6 +23,9 @@ const PhonebookUI: React.FC<Props> = props => {
 			setDebounce(selectedUser);
 		}
 	});
+	useEffect(() => {
+		userStore.fetchUsers();
+	}, [userStore]);
 
 	return useObserver(() => {
 		const users = userStore.users.slice().sort((a, b) => (a.name > b.name ? 1 : -1));
