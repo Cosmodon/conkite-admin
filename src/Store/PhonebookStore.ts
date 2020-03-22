@@ -1,6 +1,10 @@
-import { observable, action } from "mobx";
+import { observable, action, toJS } from "mobx";
 import API from "../libs/api";
-import { PhonebookEntry } from "./Phonebook";
+import { PhonebookEntry } from "./PhonebookEntry";
+
+function stripTableData(a: any) {
+	return a.map(({ tableData, ...fields }) => ({ ...fields }));
+}
 
 export default class PhonebookStore {
 	@observable entries: PhonebookEntry[] = [];
@@ -12,14 +16,14 @@ export default class PhonebookStore {
 	};
 
 	@action.bound
-	fetchPhonebookEntries = async corrlinksId => {
+	fetchPhonebookEntries = async corrlinks_id => {
 		const fn = "fetchPhonebookEntries";
-		if (!corrlinksId) this.entries = [];
+		if (!corrlinks_id) this.entries = [];
 
 		try {
 			this.setLoading(true);
 
-			const entries: void | Array<any> = await API.fetchPhonebookEntries({ corrlinksId }).catch(errors => {
+			const entries: void | Array<any> = await API.fetchPhonebookEntries({ corrlinks_id }).catch(errors => {
 				console.log("there are some API errors", errors);
 			});
 			this.setLoading(false);
@@ -31,22 +35,23 @@ export default class PhonebookStore {
 		return null;
 	};
 
-	// @action.bound
-	// updatePhonebookEntry = async ({ corrlinks_id, entry }) => {
-	// 	const fn = "updatePhonebookEntry";
-	// 	try {
-	// 		this.setLoading(true);
-	// 		const entries = toJS(this.entries).map(a =>
-	// 			a.line_id === entry.line_id ? entry : a
-	// 		);
-	// 		await API.updatePhonebookEntries({ corrlinks_id, entries });
-	// 		this.entries = [...entries];
-	// 	} catch (e) {
-	// 		console.log(fn, e);
-	// 	}
-	// 	this.setLoading(false);
-	// 	return [];
-	// };
+	@action.bound
+	updatePhonebookEntry = async ({ corrlinks_id, entry }) => {
+		const fn = "updatePhonebookEntry";
+		let result = true;
+		try {
+			this.setLoading(true);
+			const entries = stripTableData(toJS(this.entries).map(a => (a.line_id === entry.line_id ? entry : a)));
+			await API.updatePhonebookEntries({ corrlinks_id, entries });
+			this.entries = [...entries];
+		} catch (e) {
+			result = false;
+			const errorMsg = fn + ":" + e.map(line => `\n  line ${line.line_id}:\n    ${line.errors.join("\n    ")}`);
+			alert(errorMsg);
+		}
+		this.setLoading(false);
+		return result;
+	};
 
 	// @action.bound
 	// addUser = async ({ user }) => {
