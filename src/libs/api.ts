@@ -94,13 +94,28 @@ class API {
 		return result;
 	};
 
-	fetchPhonebookEntries = async ({corrlinksId}, options?): Promise<any[]> => {
-		const response = await this.api.get(`phonebook/${corrlinksId}`, options);
+	fetchPhonebookEntries = async ({corrlinks_id}, options?): Promise<any[]> => {
+		const response = await this.api.get(`phonebook/${corrlinks_id}`, options);
 
 		if (response.data && response.data["data"]) {
 			const data: [] = response.data["data"] as [];
 			return [...data];
 		}
+		return [];
+	};
+
+	updatePhonebookEntries = async ({corrlinks_id, entries}, options?): Promise<any[]> => {
+		const response = await this.api.put(`phonebook/${corrlinks_id}`, entries, options);
+
+		if (response.data && response.data["data"]) {
+			const data: [] = response.data["data"] as [];
+			return [...data];
+		}
+
+		if (response.data["error"]){
+			throw response.data["error"]
+		}
+
 		return [];
 	};
 
