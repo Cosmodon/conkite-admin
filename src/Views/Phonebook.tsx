@@ -81,10 +81,23 @@ const PhonebookUI: React.FC<Props> = props => {
 									try {
 										const entry: PhonebookEntry = new PhonebookEntry(newData);
 										const errors: Array<String> = entry.validate();
-										if (errors.length){
-											alert(errors.join('\n'));
+										if (errors.length) {
+											alert(errors.join("\n"));
 											return reject();
 										}
+										const saved = await phonebookStore.updatePhonebookEntry({ corrlinks_id, entry });
+										saved ? resolve() : reject();
+									} catch (e) {
+										reject();
+									}
+								}),
+							onRowDelete: oldData =>
+								new Promise(async (resolve, reject) => {
+									const corrlinks_id = selectedUser;
+									const entry: PhonebookEntry = new PhonebookEntry(oldData);
+									entry.label = "";
+									entry.mobile = "";
+									try {
 										const saved = await phonebookStore.updatePhonebookEntry({ corrlinks_id, entry });
 										saved ? resolve() : reject();
 									} catch (e) {
