@@ -4,7 +4,7 @@ import { Select, MenuItem } from "@material-ui/core";
 import { useUserStore, usePhonebookStore } from "../Store/hooks";
 import UserStore from "../Store/UserStore";
 import { useObserver } from "mobx-react-lite";
-import { PhonebookEntry } from "../Store/Phonebook";
+import { PhonebookEntry } from "../Store/PhonebookEntry";
 import PhonebookStore from "../Store/PhonebookStore";
 
 interface Props {
@@ -18,7 +18,7 @@ const PhonebookUI: React.FC<Props> = props => {
 	const phonebookStore: PhonebookStore = usePhonebookStore();
 
 	useEffect(() => {
-		if (selectedUser && (selectedUser!==debounce)) {
+		if (selectedUser && selectedUser !== debounce) {
 			phonebookStore.fetchPhonebookEntries(selectedUser);
 			setDebounce(selectedUser);
 		}
@@ -27,7 +27,6 @@ const PhonebookUI: React.FC<Props> = props => {
 	return useObserver(() => {
 		const users = userStore.users.slice().sort((a, b) => (a.name > b.name ? 1 : -1));
 		const usersIdx = users.reduce((a, c) => Object.assign(a, { [c.corrlinks_id]: c }), {});
-
 
 		return (
 			<React.Fragment>
@@ -45,8 +44,8 @@ const PhonebookUI: React.FC<Props> = props => {
 				</Select>
 				{selectedUser !== "" && (
 					<MaterialTable
-						isLoading={userStore.isLoading}
-						title={`Phonebook: ${usersIdx["" + selectedUser]?.name || 'UNKNOWN'}`}
+						isLoading={phonebookStore.isLoading}
+						title={`Phonebook: ${usersIdx["" + selectedUser]?.name || "UNKNOWN"}`}
 						data={phonebookStore.entries}
 						options={{
 							pageSize: 15,
@@ -74,26 +73,25 @@ const PhonebookUI: React.FC<Props> = props => {
 								editable: "always"
 							}
 						]}
-						editable={
-							{
-								isEditable: (rowData: any) => true,
-								onRowUpdate: (newData, oldData) =>
-									new Promise(async (resolve, reject) => {
-										const corrlinks_id = oldData.corrlinks_id;
-										try {
-											const entry: PhonebookEntry = new PhonebookEntry(newData);
-											if (!entry.isValid()){
-												alert(entry.errors.join('\n'));
-												reject();
-											}
-											// await phonebookStore.updatePhonebookEntry({corrlinks_id, entry});
-											resolve();
-										} catch (e) {
-											reject();
+						editable={{
+							isEditable: (rowData: any) => true,
+							onRowUpdate: (newData, oldData) =>
+								new Promise(async (resolve, reject) => {
+									const corrlinks_id = selectedUser;
+									try {
+										const entry: PhonebookEntry = new PhonebookEntry(newData);
+										const errors: Array<String> = entry.validate();
+										if (errors.length){
+											alert(errors.join('\n'));
+											return reject();
 										}
-									})
-							}
-						}
+										const saved = await phonebookStore.updatePhonebookEntry({ corrlinks_id, entry });
+										saved ? resolve() : reject();
+									} catch (e) {
+										reject();
+									}
+								})
+						}}
 					/>
 				)}
 			</React.Fragment>
