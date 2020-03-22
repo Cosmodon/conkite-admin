@@ -1,9 +1,8 @@
-
 export interface IPhonebookEntry {
 	line_id: number;
 	label: string;
 	mobile: string;
-	isValid(): boolean;
+	validate(): Array<string>;
 }
 
 export class PhonebookEntry implements IPhonebookEntry {
@@ -11,17 +10,18 @@ export class PhonebookEntry implements IPhonebookEntry {
 	label: string;
 	mobile: string;
 
-	errors: string[];
-
 	constructor(user: IPhonebookEntry) {
-		Object.assign(this, user);
+		const { line_id, label, mobile } = user;
+		this.line_id = line_id;
+		this.label = label;
+		this.mobile = mobile;
 	}
 
-	isValid(): boolean {
-		this.errors = [];
-		if (this.label.length < 1) this.errors.push("Label must have at least 1 character");
-		if (this.mobile.length < 10) this.errors.push("Mobile must contain 10 characters");
-		return this.errors.length === 0;
+	validate(): Array<string> {
+		const errors = [];
+		if (this.label.length < 1) errors.push("Label must have at least 1 character");
+		if (this.mobile.length < 10) errors.push("Mobile must contain 10 characters");
+		return errors;
 	}
 
 	static createFromArray(entries: Array<IPhonebookEntry>) {
