@@ -91,6 +91,11 @@ class API {
 		return [];
 	};
 
+	getPhonebookEmail = async ({ corrlinks_id }, options?): Promise<string> => {
+		const response: any = await this.api.get(`phonebook-email/${corrlinks_id}?subject=phonebook`, options);
+		return response.data;
+	};
+
 	updatePhonebookEntries = async ({ corrlinks_id, entries }, options?): Promise<any[]> => {
 		const response = await this.api.put(`phonebook/${corrlinks_id}`, entries, options);
 

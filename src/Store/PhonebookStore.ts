@@ -54,17 +54,30 @@ export default class PhonebookStore {
 	};
 
 	@action.bound
-	sendTextPhonebook = async ({corrlinks_id, text, responseRequired=null}) => {
+	sendTextPhonebook = async ({ corrlinks_id, text, responseRequired = null }) => {
 		const fn = "sendTextPhonebook";
-		let result = true;
+		let result = "";
 		try {
 			this.setLoading(true);
 			const result = await API.sendTextPhonebook({ corrlinks_id, text, responseRequired });
 			return result;
 		} catch (e) {
-			result = false;
-			const errorMsg = fn + ":" + e.map(line => `\n  line ${line.line_id}:\n    ${line.errors.join("\n    ")}`);
-			alert(errorMsg);
+			result = fn + ":" + e.map(line => `\n  line ${line.line_id}:\n    ${line.errors.join("\n    ")}`);
+		}
+		this.setLoading(false);
+		return result;
+	};
+
+	@action.bound
+	getPhonebookEmail = async ({ corrlinks_id }) => {
+		const fn = "getPhonebookEmail";
+		let result = "";
+		try {
+			this.setLoading(true);
+			const result = await API.getPhonebookEmail({ corrlinks_id });
+			return result;
+		} catch (e) {
+			result = fn + ":" + e.map(line => `\n  line ${line.line_id}:\n    ${line.errors.join("\n    ")}`);
 		}
 		this.setLoading(false);
 		return result;

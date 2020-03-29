@@ -35,6 +35,14 @@ export const PhonebookTest: React.FC<Props> = props => {
 	};
 	const clearResponse = () => setResponse("");
 	const addTemplateText = () => setText(TEMPLATE);
+	const copyResponse = () => setText(response);
+
+	const getPhonebook = async event => {
+		const result: any = await phonebookStore.getPhonebookEmail({ corrlinks_id, });
+		console.log(result);
+		setResponse(result);
+	};
+	
 
 	return useObserver(() => {
 		const users = userStore.users.slice().sort((a, b) => (a.name > b.name ? 1 : -1));
@@ -53,10 +61,12 @@ export const PhonebookTest: React.FC<Props> = props => {
 					})}
 				</Select>
 				<Button variant="outlined" onClick={addTemplateText}>Add template text</Button>
+				<Button variant="outlined" disabled={!corrlinks_id} onClick={getPhonebook}>Get Phonebook email</Button>
 				
 				<Input style={{border:'1px solid black'}} multiline value={text} onChange={setValue(setText)} rows={20} fullWidth />
 				<Button variant="outlined" disabled={!corrlinks_id} onClick={sendText}>Send Phonebook email to process</Button>
 				<Button variant="outlined" disabled={!corrlinks_id} onClick={clearResponse}>Clear Response</Button>
+				<Button variant="outlined" disabled={!corrlinks_id} onClick={copyResponse}>Open Response to Text</Button>
 				<div style={{ whiteSpace: "pre" }}>{response}</div>
 			</>
 		);
