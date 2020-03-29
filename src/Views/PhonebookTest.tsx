@@ -66,7 +66,7 @@ export const PhonebookTest: React.FC<Props> = props => {
 				<Input style={{border:'1px solid black'}} multiline value={text} onChange={setValue(setText)} rows={20} fullWidth />
 				<Button variant="outlined" disabled={!corrlinks_id} onClick={sendText}>Send Phonebook email to process</Button>
 				<Button variant="outlined" disabled={!corrlinks_id} onClick={clearResponse}>Clear Response</Button>
-				<Button variant="outlined" disabled={!corrlinks_id} onClick={copyResponse}>Open Response to Text</Button>
+				<Button variant="outlined" disabled={!corrlinks_id} onClick={copyResponse}>Copy Response to Text</Button>
 				<div style={{ whiteSpace: "pre" }}>{response}</div>
 			</>
 		);
