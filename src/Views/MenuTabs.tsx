@@ -11,6 +11,7 @@ import { inject, observer } from "mobx-react";
 // import LoginForm from './LoginForm';
 import API from "../libs/api";
 import { Select, MenuItem } from "@material-ui/core";
+import { PhonebookTest } from "./PhonebookTest";
 
 interface TabPanelProps {
 	children?: React.ReactNode;
@@ -74,6 +75,12 @@ class SimpleTabs extends React.Component<{
 							href="#phonebooks"
 							{...a11yProps(3)}
 						/>
+						<Tab
+							label="PhonebookTest"
+							value="phonebook-test"
+							href="#phonebook-test"
+							{...a11yProps(3)}
+						/>
 					</Tabs>
 				</AppBar>
 
@@ -104,6 +111,9 @@ class SimpleTabs extends React.Component<{
 				</TabPanel>
 				<TabPanel value={value} index={"phonebooks"}>
 					<Phonebook />
+				</TabPanel>
+				<TabPanel value={value} index={"phonebook-test"}>
+					<PhonebookTest />
 				</TabPanel>
 			</div>
 		);
