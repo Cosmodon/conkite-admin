@@ -53,6 +53,23 @@ export default class PhonebookStore {
 		return result;
 	};
 
+	@action.bound
+	sendTextPhonebook = async ({corrlinks_id, text, responseRequired=null}) => {
+		const fn = "sendTextPhonebook";
+		let result = true;
+		try {
+			this.setLoading(true);
+			const result = await API.sendTextPhonebook({ corrlinks_id, text, responseRequired });
+			return result;
+		} catch (e) {
+			result = false;
+			const errorMsg = fn + ":" + e.map(line => `\n  line ${line.line_id}:\n    ${line.errors.join("\n    ")}`);
+			alert(errorMsg);
+		}
+		this.setLoading(false);
+		return result;
+	};
+
 	// @action.bound
 	// addUser = async ({ user }) => {
 	// 	const fn = "addUser";
