@@ -9,10 +9,7 @@ class Auth {
 	}
 }
 
-export const endpoints: Array<string> = [
-	"https://theeblvd.ngrok.io",
-	"http://localhost:3000"
-];
+export const endpoints: Array<string> = ["https://theeblvd.ngrok.io", "http://localhost:3000"];
 
 class API {
 	auth = new Auth();
@@ -45,10 +42,7 @@ class API {
 	}
 
 	fetchUserPayments = async ({ corrlinksId }, options?): Promise<any[]> => {
-		const response = await this.api.get(
-			`users/${corrlinksId}/payments`,
-			options
-		);
+		const response = await this.api.get(`users/${corrlinksId}/payments`, options);
 
 		if (response.data && response.data["data"]) {
 			const data: [] = response.data["data"] as [];
@@ -82,19 +76,12 @@ class API {
 		return true;
 	};
 
-	addUserPayment = async (
-		{ corrlinks_id, payment },
-		options?
-	): Promise<any> => {
-		const result = await this.api.post(
-			`/users/${corrlinks_id}/payments`,
-			payment,
-			options
-		);
+	addUserPayment = async ({ corrlinks_id, payment }, options?): Promise<any> => {
+		const result = await this.api.post(`/users/${corrlinks_id}/payments`, payment, options);
 		return result;
 	};
 
-	fetchPhonebookEntries = async ({corrlinks_id}, options?): Promise<any[]> => {
+	fetchPhonebookEntries = async ({ corrlinks_id }, options?): Promise<any[]> => {
 		const response = await this.api.get(`phonebook/${corrlinks_id}`, options);
 
 		if (response.data && response.data["data"]) {
@@ -104,7 +91,7 @@ class API {
 		return [];
 	};
 
-	updatePhonebookEntries = async ({corrlinks_id, entries}, options?): Promise<any[]> => {
+	updatePhonebookEntries = async ({ corrlinks_id, entries }, options?): Promise<any[]> => {
 		const response = await this.api.put(`phonebook/${corrlinks_id}`, entries, options);
 
 		if (response.data && response.data["data"]) {
@@ -112,13 +99,31 @@ class API {
 			return [...data];
 		}
 
-		if (response.data["error"]){
-			throw response.data["error"]
+		if (response.data["error"]) {
+			throw response.data["error"];
 		}
 
 		return [];
 	};
 
+	sendTextPhonebook = async ({ corrlinks_id, text, responseRequired = null }, options?): Promise<any[]> => {
+		const response = await this.api.put(`phonebook/${corrlinks_id}/process`, { text, responseRequired }, options);
+
+		if (response.data && response.data["data"]) {
+			const data: [] = response.data["data"] as [];
+			return [...data];
+		}
+
+		if (response.data["text"]){
+			return response.data["text"];
+		}
+
+		if (response.data["error"]) {
+			throw response.data["error"];
+		}
+
+		return null;
+	};
 }
 
 export default new API();
