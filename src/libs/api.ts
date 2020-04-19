@@ -119,7 +119,7 @@ class API {
 			return [...data];
 		}
 
-		if (response.data["text"]){
+		if (response.data["text"]) {
 			return response.data["text"];
 		}
 
@@ -127,6 +127,13 @@ class API {
 			throw response.data["error"];
 		}
 
+		return null;
+	};
+
+	sendToMessageFromCorrlinks = async ({ corrlinks_id, text, subject = "phonebook" }, options?): Promise<any[]> => {
+		const response = await this.api.post(`message-from-corrlinks`, { to: "na", from: `blank (${corrlinks_id})`, body: text, subject }, options);
+		console.log(response);
+		alert(response['data']['data']['status'])
 		return null;
 	};
 }
