@@ -60,8 +60,27 @@ export default class PhonebookStore {
 		try {
 			this.setLoading(true);
 			const result = await API.sendTextPhonebook({ corrlinks_id, text, responseRequired });
+			this.setLoading(false);
 			return result;
 		} catch (e) {
+			console.log(e);
+			result = fn + ":" + e.map(line => `\n  line ${line.line_id}:\n    ${line.errors.join("\n    ")}`);
+		}
+		this.setLoading(false);
+		return result;
+	};
+
+	@action.bound
+	sendToMessageFromCorrlinks = async ({ corrlinks_id, text }) => {
+		const fn = "sendToMessageFromCorrlinks";
+		let result = "";
+		try {
+			this.setLoading(true);
+			const result = await API.sendToMessageFromCorrlinks({ corrlinks_id, text });
+			this.setLoading(false);
+			return result;
+		} catch (e) {
+			console.log(e);
 			result = fn + ":" + e.map(line => `\n  line ${line.line_id}:\n    ${line.errors.join("\n    ")}`);
 		}
 		this.setLoading(false);
