@@ -33,6 +33,11 @@ export const PhonebookTest: React.FC<Props> = props => {
 		console.log(result);
 		setResponse(result);
 	};
+	const sendToMessageFromCorrlinks = async event => {
+		const result: any = await phonebookStore.sendToMessageFromCorrlinks({ corrlinks_id, text });
+		console.log(result);
+		setResponse(result);
+	};
 	const clearResponse = () => setResponse("");
 	const addTemplateText = () => setText(TEMPLATE);
 	const copyResponse = () => setText(response);
@@ -42,7 +47,6 @@ export const PhonebookTest: React.FC<Props> = props => {
 		console.log(result);
 		setResponse(result);
 	};
-	
 
 	return useObserver(() => {
 		const users = userStore.users.slice().sort((a, b) => (a.name > b.name ? 1 : -1));
@@ -55,7 +59,7 @@ export const PhonebookTest: React.FC<Props> = props => {
 					{users.map((a, i) => {
 						return (
 							<MenuItem key={i} value={a.corrlinks_id}>
-								{a.name}
+								{a.name} - {a.corrlinks_id}
 							</MenuItem>
 						);
 					})}
@@ -67,6 +71,7 @@ export const PhonebookTest: React.FC<Props> = props => {
 				<Button variant="outlined" disabled={!corrlinks_id} onClick={sendText}>Send Phonebook email to process</Button>
 				<Button variant="outlined" disabled={!corrlinks_id} onClick={clearResponse}>Clear Response</Button>
 				<Button variant="outlined" disabled={!corrlinks_id} onClick={copyResponse}>Copy Response to Text</Button>
+				<Button variant="outlined" disabled={!corrlinks_id} onClick={sendToMessageFromCorrlinks}>Send to message-from-corrlinks</Button>
 				<div style={{ whiteSpace: "pre" }}>{response}</div>
 			</>
 		);
