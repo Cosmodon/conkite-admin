@@ -71,12 +71,12 @@ export default class PhonebookStore {
 	};
 
 	@action.bound
-	sendToMessageFromCorrlinks = async ({ corrlinks_id, text }) => {
+	sendToMessageFromCorrlinks = async ({ corrlinks_id, text, subject }) => {
 		const fn = "sendToMessageFromCorrlinks";
 		let result = "";
 		try {
 			this.setLoading(true);
-			const result = await API.sendToMessageFromCorrlinks({ corrlinks_id, text });
+			const result = await API.sendToMessageFromCorrlinks({ corrlinks_id, text, subject });
 			this.setLoading(false);
 			return result;
 		} catch (e) {
