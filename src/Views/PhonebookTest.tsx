@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
-import MaterialTable from "material-table";
 import { Select, MenuItem, Input, Button } from "@material-ui/core";
 import { useUserStore, usePhonebookStore } from "../Store/hooks";
 import UserStore from "../Store/UserStore";
 import { useObserver } from "mobx-react-lite";
-import { PhonebookEntry } from "../Store/PhonebookEntry";
 import PhonebookStore from "../Store/PhonebookStore";
 
 interface Props {
@@ -16,10 +14,10 @@ const setValue = setFn => event => {
 };
 
 export const PhonebookTest: React.FC<Props> = props => {
-	const [debounce, setDebounce] = useState<String>("");
 	const userStore: UserStore = useUserStore();
 
 	const [text, setText] = useState("");
+	const [subject, setSubject] = useState("");
 	const [corrlinks_id, setCorrlinks_id] = useState("");
 	const [response, setResponse] = useState("null");
 	const phonebookStore: PhonebookStore = usePhonebookStore();
@@ -33,8 +31,8 @@ export const PhonebookTest: React.FC<Props> = props => {
 		console.log(result);
 		setResponse(result);
 	};
-	const sendToMessageFromCorrlinks = async event => {
-		const result: any = await phonebookStore.sendToMessageFromCorrlinks({ corrlinks_id, text });
+	const sendToMessageFromCorrlinks = async subject => {
+		const result: any = await phonebookStore.sendToMessageFromCorrlinks({ corrlinks_id, text, subject });
 		console.log(result);
 		setResponse(result);
 	};
@@ -67,11 +65,13 @@ export const PhonebookTest: React.FC<Props> = props => {
 				<Button variant="outlined" onClick={addTemplateText}>Add template text</Button>
 				<Button variant="outlined" disabled={!corrlinks_id} onClick={getPhonebook}>Get Phonebook email</Button>
 				
-				<Input style={{border:'1px solid black'}} multiline value={text} onChange={setValue(setText)} rows={20} fullWidth />
+				<Input style={{border:'1px solid black'}} placeholder="Subject" value={subject} onChange={setValue(setSubject)} rows={20} fullWidth />
+				<Input style={{border:'1px solid black'}} placeholder="email" value={text} onChange={setValue(setText)} rows={20} fullWidth multiline />
+
 				<Button variant="outlined" disabled={!corrlinks_id} onClick={sendText}>Send Phonebook email to process</Button>
 				<Button variant="outlined" disabled={!corrlinks_id} onClick={clearResponse}>Clear Response</Button>
 				<Button variant="outlined" disabled={!corrlinks_id} onClick={copyResponse}>Copy Response to Text</Button>
-				<Button variant="outlined" disabled={!corrlinks_id} onClick={sendToMessageFromCorrlinks}>Send to message-from-corrlinks</Button>
+				<Button variant="outlined" disabled={!corrlinks_id} onClick={()=>sendToMessageFromCorrlinks(subject)}>Send to message-from-corrlinks</Button>
 				<div style={{ whiteSpace: "pre" }}>{response}</div>
 			</>
 		);
