@@ -133,7 +133,7 @@ class API {
 	sendToMessageFromCorrlinks = async ({ corrlinks_id, text, subject = "phonebook" }, options?): Promise<any[]> => {
 		const response = await this.api.post(`message-from-corrlinks`, { to: "na", from: `blank (${corrlinks_id})`, body: text, subject }, options);
 		console.log(response);
-		alert(response['data']['data']['status'])
+		alert(response['data']['data']['message']||response['data']['data']['status'])
 		return null;
 	};
 }
