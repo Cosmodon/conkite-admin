@@ -2,8 +2,7 @@ import React from "react";
 import { inject, observer } from "mobx-react";
 import MaterialTable from "material-table";
 import { DatePicker } from "@material-ui/pickers";
-import { Typography } from "@material-ui/core";
-// import { Select, MenuItem } from '@material-ui/core';
+import { Typography, Select, MenuItem } from "@material-ui/core";
 import Payments from "./PaymentsList";
 import { toJS } from "mobx";
 import { formatDate, formatDateMMDDYYYYfromYYYYMMDD, correctTimezone, saveChangeDateCurry } from "../libs/common";
@@ -70,17 +69,11 @@ class App extends React.Component<{
 							return new Date();
 						},
 						render: props => {
-							const color = subscribed(props.date_subscription_ends)
-								? "red"
-								: "green";
-							return (
-								<Typography style={{ color }}>
-									{formatDateMMDDYYYYfromYYYYMMDD(props.date_subscription_ends)}
-								</Typography>
-							);
+							const color = subscribed(props.date_subscription_ends) ? "red" : "green";
+							return <Typography style={{ color }}>{formatDateMMDDYYYYfromYYYYMMDD(props.date_subscription_ends)}</Typography>;
 						},
 						editComponent: props => {
-							return <DatePicker value={correctTimezone(props.value)} onChange={saveChangeDateCurry(props)} />
+							return <DatePicker value={correctTimezone(props.value)} onChange={saveChangeDateCurry(props)} />;
 						}
 					},
 					{
@@ -89,14 +82,8 @@ class App extends React.Component<{
 						defaultSort: "desc",
 						editable: "never",
 						render: props => {
-							const color = subscribed(props.date_subscription_ends)
-								? "red"
-								: "green";
-							return (
-								<Typography style={{ color }}>
-									{color === "red" ? "UNPAID" : "PAID"}
-								</Typography>
-							);
+							const color = subscribed(props.date_subscription_ends) ? "red" : "green";
+							return <Typography style={{ color }}>{color === "red" ? "UNPAID" : "PAID"}</Typography>;
 						}
 					},
 					{
@@ -106,19 +93,32 @@ class App extends React.Component<{
 						editable: "always"
 					},
 					{
+						title: "Uses Phonebook?",
+						field: "use_phonebook",
+						defaultSort: "desc",
+						editable: "always",
+						render: props => <Typography>{props.use_phonebook === 0 ? "No" : "Yes"}</Typography>,
+						editComponent: props => (
+							<Select value={props.value} onChange={event => props.onChange(event.target.value)}>
+								<MenuItem key={0} value={0}>
+									No
+								</MenuItem>
+								<MenuItem key={1} value={1}>
+									Yes
+								</MenuItem>
+							</Select>
+						)
+					},
+					{
 						title: "Release Date",
 						field: "date_release",
 						defaultSort: "desc",
 						editable: "onUpdate",
 						render: props => {
-							return (
-								<Typography>
-									{formatDate(props ? formatDateMMDDYYYYfromYYYYMMDD(props.date_release) : "-")}
-								</Typography>
-							);
+							return <Typography>{formatDate(props ? formatDateMMDDYYYYfromYYYYMMDD(props.date_release) : "-")}</Typography>;
 						},
 						editComponent: props => {
-							return <DatePicker value={correctTimezone(props.value)} onChange={saveChangeDateCurry(props)} />
+							return <DatePicker value={correctTimezone(props.value)} onChange={saveChangeDateCurry(props)} />;
 						}
 					}
 					// {
@@ -187,14 +187,9 @@ class App extends React.Component<{
 	}
 }
 function validate(a) {
-	if (!a.corrlinks_id || ("" + a.corrlinks_id).length < 8)
-		throw new Error("corrlinks_id must be 8 digits long");
+	if (!a.corrlinks_id || ("" + a.corrlinks_id).length < 8) throw new Error("corrlinks_id must be 8 digits long");
 	if (!a.name || a.name.lengt < 1) throw new Error("name required");
-	if (
-		!a.date_subscription_ends ||
-		!new Date(a.date_subscription_ends).valueOf()
-	)
-		throw new Error("date_subscription_ends must be a valid date");
+	if (!a.date_subscription_ends || !new Date(a.date_subscription_ends).valueOf()) throw new Error("date_subscription_ends must be a valid date");
 	return true;
 }
 
