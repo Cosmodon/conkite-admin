@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Select, MenuItem, Input, Button } from "@material-ui/core";
+import { Select, MenuItem, Input, Button, TextField } from "@material-ui/core";
 import { useUserStore, usePhonebookStore } from "../Store/hooks";
 import UserStore from "../Store/UserStore";
 import { useObserver } from "mobx-react-lite";
 import PhonebookStore from "../Store/PhonebookStore";
+import Autocomplete from "@material-ui/lab/Autocomplete";
 
 interface Props {
 	corrlinks_id?: string;
@@ -50,18 +51,16 @@ export const PhonebookTest: React.FC<Props> = props => {
 		const users = userStore.users.slice().sort((a, b) => (a.name > b.name ? 1 : -1));
 		return (
 			<>
-				<Select onChange={setValue(setCorrlinks_id)} value={corrlinks_id} displayEmpty>
-					<MenuItem value="" disabled>
-						<em>Select a Corrlinks User</em>
-					</MenuItem>
-					{users.map((a, i) => {
-						return (
-							<MenuItem key={i} value={a.corrlinks_id}>
-								{a.name} - {a.corrlinks_id}
-							</MenuItem>
-						);
-					})}
-				</Select>
+				<Autocomplete
+					id="corrlinks_id"
+					onChange={(e, user) => setCorrlinks_id(user ? user.corrlinks_id : "")}
+					options={users}
+					getOptionLabel={o => `${o.name} ${o.corrlinks_id}`}
+					style={{ width: 300 }}
+					renderInput={params => <TextField {...params} name="corrlinks_id" variant="standard" fullWidth />}
+					renderOption={o => <div data-value={o.corrlinks_id}>{`${o.name} ${o.corrlinks_id}`}</div>}
+				/>
+
 				<Button variant="outlined" onClick={addTemplateText}>Add template text</Button>
 				<Button variant="outlined" disabled={!corrlinks_id} onClick={getPhonebook}>Get Phonebook email</Button>
 				
