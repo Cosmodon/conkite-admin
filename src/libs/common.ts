@@ -139,6 +139,7 @@ export function removeItemsByFieldValue(
 }
 
 export function toYYYYMMDD(date) {
+	if (!date) return null;
 	return date.toJSON().substr(0, 10);
 }
 
