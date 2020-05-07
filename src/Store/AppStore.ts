@@ -122,9 +122,9 @@ export default class AppStore {
 			const payment = Object.assign({}, paymentDetails);
 			delete payment.corrlinks_id;
 			payment.date_created = toYYYYMMDD(payment.date_created);
-			payment.date_subscription_ends = toYYYYMMDD(
+			payment.date_subscription_ends = payment.date_subscription_ends?toYYYYMMDD(
 				payment.date_subscription_ends
-			);
+			):null;
 
 			this.isLoadingUsers = true;
 			await API.addUserPayment({ corrlinks_id: user.corrlinks_id, payment });
