@@ -40,19 +40,19 @@ class PaymentForm extends React.Component<{
 			values.date_created.toString() === "Invalid Date"
 		)
 			errors.date_created = "invalid date";
-		if (
-			!(values.date_subscription_ends instanceof Date) ||
-			values.date_subscription_ends.toString() === "Invalid Date"
-		)
-			errors.date_subscription_ends = "invalid date";
+		// if (
+		// 	!(values.date_subscription_ends instanceof Date) ||
+		// 	values.date_subscription_ends.toString() === "Invalid Date"
+		// )
+		// 	errors.date_subscription_ends = "invalid date";
 		if (!values.corrlinks_id) errors.corrlinks_id = "Invalid id";
-		if (
-			values.date_created instanceof Date &&
-			values.date_subscription_ends instanceof Date &&
-			values.date_subscription_ends.valueOf() <= values.date_created.valueOf()
-		) {
-			errors.date_created = "Subscription End Darte must be after payment date";
-		}
+		// if (
+		// 	values.date_created instanceof Date &&
+		// 	values.date_subscription_ends instanceof Date &&
+		// 	values.date_subscription_ends.valueOf() <= values.date_created.valueOf()
+		// ) {
+		// 	errors.date_created = "Subscription End Darte must be after payment date";
+		// }
 		return errors;
 	};
 
@@ -83,7 +83,7 @@ class PaymentForm extends React.Component<{
 			amount: 0,
 			comment: "",
 			corrlinks_id: "",
-			date_subscription_ends
+			date_subscription_ends: null,
 		};
 	}
 
@@ -197,7 +197,6 @@ class PaymentForm extends React.Component<{
 											<TableCell>New Subscription End Date:</TableCell>
 											<TableCell>
 												<DatePicker
-													required
 													fullWidth
 													name="date_subscription_ends"
 													value={props.values.date_subscription_ends}
