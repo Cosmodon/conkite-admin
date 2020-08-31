@@ -87,6 +87,12 @@ class App extends React.Component<{
 						}
 					},
 					{
+						title: "Email",
+						field: "corrlinks_account",
+						defaultSort: "desc",
+						editable: "always"
+					},
+					{
 						title: "Prison",
 						field: "location",
 						defaultSort: "desc",
