@@ -120,6 +120,12 @@ class App extends React.Component<{
 						editComponent: props => {
 							return <DatePicker value={correctTimezone(props.value)} onChange={saveChangeDateCurry(props)} />;
 						}
+					},
+					{
+						title: "Email",
+						field: "corrlinks_account",
+						defaultSort: "desc",
+						editable: "always"
 					}
 					// {
 					// 	title: "Server Status",
