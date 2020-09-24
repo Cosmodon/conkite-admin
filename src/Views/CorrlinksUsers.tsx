@@ -61,12 +61,6 @@ class App extends React.Component<{
 						editable: "always"
 					},
 					{
-						title: "Comment",
-						field: "comment",
-						defaultSort: "desc",
-						editable: "always"
-					},
-					{
 						title: "subscription end date",
 						field: "date_subscription_ends",
 						defaultSort: "desc",
