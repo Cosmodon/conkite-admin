@@ -93,22 +93,28 @@ class App extends React.Component<{
 						editable: "always"
 					},
 					{
-						title: "Uses Phonebook?",
-						field: "use_phonebook",
+						title: "Notes",
+						field: "notes",
 						defaultSort: "desc",
-						editable: "always",
-						render: props => <Typography>{props.use_phonebook === 0 ? "No" : "Yes"}</Typography>,
-						editComponent: props => (
-							<Select value={props.value} onChange={event => props.onChange(event.target.value)}>
-								<MenuItem key={0} value={0}>
-									No
-								</MenuItem>
-								<MenuItem key={1} value={1}>
-									Yes
-								</MenuItem>
-							</Select>
-						)
+						editable: "always"
 					},
+					// {
+					//	title: "Uses Phonebook?",
+					//	field: "use_phonebook",
+					//	defaultSort: "desc",
+					//	editable: "always",
+					//	render: props => <Typography>{props.use_phonebook === 0 ? "No" : "Yes"}</Typography>,
+					//	editComponent: props => (
+					//		<Select value={props.value} onChange={event => props.onChange(event.target.value)}>
+					//			<MenuItem key={0} value={0}>
+					//				No
+					//			</MenuItem>
+					//			<MenuItem key={1} value={1}>
+					//				Yes
+					//			</MenuItem>
+					//		</Select>
+					//	)
+					//},
 					{
 						title: "Release Date",
 						field: "date_release",
