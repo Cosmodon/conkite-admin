@@ -2,7 +2,7 @@ import React from "react";
 import { inject, observer } from "mobx-react";
 import MaterialTable from "material-table";
 import { DatePicker } from "@material-ui/pickers";
-import { Typography, Select, MenuItem } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import { toJS } from "mobx";
 import { formatDate, formatDateMMDDYYYYfromYYYYMMDD, correctTimezone, saveChangeDateCurry } from "../libs/common";
 import PaymentsNotesTabs from "./PaymentOrNotesTabs";
