@@ -18,6 +18,7 @@ const PhonebookUI: React.FC<Props> = props => {
 	const userStore: UserStore = useUserStore();
 	const phonebookStore: PhonebookStore = usePhonebookStore();
 
+	// eslint-disable-next-line
 	useEffect(() => {
 		if (selectedUser && selectedUser !== debounce) {
 			phonebookStore.fetchPhonebookEntries(selectedUser);

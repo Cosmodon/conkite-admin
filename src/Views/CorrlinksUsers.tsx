@@ -3,9 +3,9 @@ import { inject, observer } from "mobx-react";
 import MaterialTable from "material-table";
 import { DatePicker } from "@material-ui/pickers";
 import { Typography, Select, MenuItem } from "@material-ui/core";
-import Payments from "./PaymentsList";
 import { toJS } from "mobx";
 import { formatDate, formatDateMMDDYYYYfromYYYYMMDD, correctTimezone, saveChangeDateCurry } from "../libs/common";
+import PaymentsNotesTabs from "./PaymentOrNotesTabs";
 
 @inject("store")
 @observer
@@ -181,7 +181,7 @@ class App extends React.Component<{
 							}
 						})
 				}}
-				detailPanel={props => <Payments user={toJS(props)} />}
+				detailPanel={props => <PaymentsNotesTabs user={toJS(props)} />}
 			/>
 		);
 	}

@@ -25,7 +25,9 @@ class PaymentsList extends React.Component<{
 					style={{ width: "75%", margin: "0 auto" }}
 					options={{
 						pageSize: 5,
-						search: false
+						search: false,
+						showTitle: false,
+						// toolbar: false,
 					}}
 					isLoading={this.props.store.app.isPaymentsLoading}
 					title={`Payments`}

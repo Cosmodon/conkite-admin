@@ -9,9 +9,15 @@ export default class AppStore {
 	@observable isPaymentsLoading: boolean = false;
 	@observable payments: any[] = [];
 	@observable paymentNotification: {} = null;
-	@observable isLoading: { users: boolean; payments: boolean } = {
+	@observable notes: any[] = [];
+	@observable isLoading: { 
+		users: boolean; 
+		payments: boolean;
+		notes: boolean;
+	} = {
 		users: false,
-		payments: false
+		payments: false,
+		notes: false,
 	};
 
 	@action.bound
@@ -137,4 +143,58 @@ export default class AppStore {
 		this.paymentNotification = { message: "done", type: "success" };
 		return true;
 	};
+
+	@action.bound
+	fetchUserNotes = async({corrlinks_id}) => {
+		const fn = "fetchUserNotes";
+		const stateVariable = 'notes';
+		try {
+			this.setLoading(stateVariable, true);
+
+			const notes = await API.fetchUserNotes({corrlinks_id}).catch(errors => {
+				console.log("there are some API errors", errors);
+			});
+			this.setLoading(stateVariable, false);
+			notes && (this.notes = [...notes]);
+		} catch (e) {
+			console.log(fn, e);
+		}
+		this.setLoading(stateVariable, false);
+		return null;
+	}
+
+	@action.bound
+	addUserNote = async ({ corrlinks_id, note }) => {
+		const fn = "addUserNote";
+		const stateVariable = "notes";
+		try {
+			this.setLoading(stateVariable, true);
+			const response = await API.addUserNote({ corrlinks_id, note });
+			if (response.data.data) {
+				this.notes = [...this.notes, response.data.data];
+			}
+			this.setLoading(stateVariable, false);
+		} catch (e) {
+			console.log(fn, e);
+			this.setLoading(stateVariable, false);
+		}
+		return [];
+	}
+
+	@action.bound
+	deleteUserNote = async ({ corrlinks_id, note_id }) => {
+		const fn = "deleteUserNote";
+		const stateVariable = "notes";
+		try {
+			this.setLoading(stateVariable, true);
+			await API.deleteUserNote({ corrlinks_id, note_id });
+			this.notes = this.notes.filter(a => !(a.corrlinks_id === corrlinks_id && a.id === note_id));
+			this.setLoading(stateVariable, false);
+		} catch (e) {
+			console.log(fn, e);
+			this.setLoading(stateVariable, false);
+		}
+		return [];
+	};
+
 }

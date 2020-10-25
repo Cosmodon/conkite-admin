@@ -133,9 +133,31 @@ class API {
 	sendToMessageFromCorrlinks = async ({ corrlinks_id, text, subject = "phonebook" }, options?): Promise<any[]> => {
 		const response = await this.api.post(`message-from-corrlinks`, { to: "na", from: `blank (${corrlinks_id})`, body: text, subject }, options);
 		console.log(response);
-		alert(response['data']['data']['message']||response['data']['data']['status'])
+		alert(response["data"]["data"]["message"] || response["data"]["data"]["status"]);
 		return null;
 	};
+
+	fetchUserNotes = async ({ corrlinks_id }, options?): Promise<any[]> => {
+		const response = await this.api.get(`users/${corrlinks_id}/notes`, options);
+		if (response.data && response.data["data"]) {
+			const data: [] = response.data["data"] as [];
+			return [...data];
+		}
+		return [];
+	};
+
+	addUserNote = async ({ corrlinks_id, note }, options?): Promise<any> => {
+		const newNote = await this.api.post(`users/${corrlinks_id}/notes`, { note }, options);
+		return newNote;
+	};
+
+	deleteUserNote = async ({ corrlinks_id, note_id }, options?): Promise<any> => {
+		await this.api.delete(`/users/${corrlinks_id}/notes/${note_id}`, options);
+		return true;
+	};
+
+
+
 }
 
 export default new API();
