@@ -87,28 +87,40 @@ class App extends React.Component<{
 						}
 					},
 					{
+						title: "Email",
+						field: "corrlinks_account",
+						defaultSort: "desc",
+						editable: "always"
+					},
+					{
 						title: "Prison",
 						field: "location",
 						defaultSort: "desc",
 						editable: "always"
 					},
 					{
-						title: "Uses Phonebook?",
-						field: "use_phonebook",
+						title: "Notes",
+						field: "notes",
 						defaultSort: "desc",
-						editable: "always",
-						render: props => <Typography>{props.use_phonebook === 0 ? "No" : "Yes"}</Typography>,
-						editComponent: props => (
-							<Select value={props.value} onChange={event => props.onChange(event.target.value)}>
-								<MenuItem key={0} value={0}>
-									No
-								</MenuItem>
-								<MenuItem key={1} value={1}>
-									Yes
-								</MenuItem>
-							</Select>
-						)
+						editable: "always"
 					},
+					// {
+					//	title: "Uses Phonebook?",
+					//	field: "use_phonebook",
+					//	defaultSort: "desc",
+					//	editable: "always",
+					//	render: props => <Typography>{props.use_phonebook === 0 ? "No" : "Yes"}</Typography>,
+					//	editComponent: props => (
+					//		<Select value={props.value} onChange={event => props.onChange(event.target.value)}>
+					//			<MenuItem key={0} value={0}>
+					//				No
+					//			</MenuItem>
+					//			<MenuItem key={1} value={1}>
+					//				Yes
+					//			</MenuItem>
+					//		</Select>
+					//	)
+					//},
 					{
 						title: "Release Date",
 						field: "date_release",
@@ -120,7 +132,13 @@ class App extends React.Component<{
 						editComponent: props => {
 							return <DatePicker value={correctTimezone(props.value)} onChange={saveChangeDateCurry(props)} />;
 						}
-					}
+					},
+					// {
+					//	title: "Email",
+					//	field: "corrlinks_account",
+					//	defaultSort: "desc",
+					//	editable: "always"
+					// },
 					// {
 					// 	title: "Server Status",
 					// 	field: "status",
