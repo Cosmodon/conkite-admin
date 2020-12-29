@@ -7,7 +7,7 @@ import { Formik, FormikProps } from "formik";
 import { toJS } from "mobx";
 
 const MESSAGING = 2;
-// const PHONEBOOK = 3;
+const PHONEBOOK = 3;
 const ADHOC = 4;
 
 @inject("store")
@@ -73,6 +73,9 @@ class PaymentForm extends React.Component<{
 			case MESSAGING:
 				result = await this.props.store.app.submitPurchase(values);
 				break;
+			case PHONEBOOK:
+				result = await this.props.store.app.submitPurchase(values);
+				break;
 			default:
 				break;
 		}
@@ -109,6 +112,16 @@ class PaymentForm extends React.Component<{
 			return "-";
 		}
 		const date = new Date(usersIdx[corrlinks_id].date_subscription_ends);
+		return date.toLocaleDateString();
+	}
+
+	getCurrentPhonebookSubEndDate(corrlinks_id) {
+		const { usersIdx } = this.state;
+		const user = usersIdx[corrlinks_id];
+		if (!corrlinks_id || !user || !usersIdx[corrlinks_id].date_phonebook_subscription_ends || usersIdx[corrlinks_id].date_phonebook_subscription_ends==='null') {
+			return "-";
+		}
+		const date = new Date(usersIdx[corrlinks_id].date_phonebook_subscription_ends);
 		return date.toLocaleDateString();
 	}
 
@@ -162,8 +175,12 @@ class PaymentForm extends React.Component<{
 											</TableCell>
 										</TableRow>
 										<TableRow>
-											<TableCell>Current Sub End Date:</TableCell>
+											<TableCell>Current Messaging Sub End Date:</TableCell>
 											<TableCell>{this.getCurrentSubEndDate(props.values.corrlinks_id)}</TableCell>
+										</TableRow>
+										<TableRow>
+											<TableCell>Current Phonebook Sub End Date:</TableCell>
+											<TableCell>{this.getCurrentPhonebookSubEndDate(props.values.corrlinks_id)}</TableCell>
 										</TableRow>
 										<TableRow>
 											<TableCell>Amount</TableCell>
@@ -212,7 +229,7 @@ class PaymentForm extends React.Component<{
 											</>
 										)}
 
-										{props.values.product_type === MESSAGING && (
+										{(props.values.product_type === MESSAGING || props.values.product_type === PHONEBOOK) && (
 											<>
 												<TableRow>
 													<TableCell>Months</TableCell>
@@ -226,7 +243,7 @@ class PaymentForm extends React.Component<{
 															value={props.values.product_instance_id}
 															onChange={props.handleChange}
 														>
-															{this.state.productsIdx[MESSAGING].instances.map(product_instance => (
+															{this.state.productsIdx[props.values.product_type].instances.map(product_instance => (
 																<MenuItem
 																	key={`product_instance_id-${product_instance.product_instances_id}`}
 																	value={product_instance.product_instances_id}
