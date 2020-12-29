@@ -61,7 +61,7 @@ class App extends React.Component<{
 						editable: "always"
 					},
 					{
-						title: "subscription end date",
+						title: "messagine subscription end date",
 						field: "date_subscription_ends",
 						defaultSort: "desc",
 						editable: "always",
@@ -85,6 +85,16 @@ class App extends React.Component<{
 							const color = subscribed(props.date_subscription_ends) ? "red" : "green";
 							return <Typography style={{ color }}>{color === "red" ? "UNPAID" : "PAID"}</Typography>;
 						}
+					},
+					{
+						title: "phonebook subscription end date",
+						field: "date_phonebook_subscription_ends",
+						defaultSort: "desc",
+						editable: "never",
+						render: props => {
+							const color = subscribed(props.date_phonebook_subscription_ends) ? "red" : "green";
+							return <Typography style={{ color }}>{formatDateMMDDYYYYfromYYYYMMDD(props.date_phonebook_subscription_ends)}</Typography>;
+						},
 					},
 					{
 						title: "Email",
