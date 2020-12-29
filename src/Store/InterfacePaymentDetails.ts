@@ -5,3 +5,10 @@ export default interface PaymentDetails {
 	date_created: Date;
 	date_subscription_ends: Date;
 }
+
+export interface PurchaseDetails {
+	amount: number;
+	corrlinks_id: string;
+	product_instance_id: number;
+	comment?: string;
+}

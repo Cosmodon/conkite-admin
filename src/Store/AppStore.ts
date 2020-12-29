@@ -1,7 +1,7 @@
 import { observable, action } from "mobx";
 import API from "../libs/api";
 import { removeItemsByFieldValue, toYYYYMMDD } from "../libs/common";
-import PaymentDetails from "./InterfacePaymentDetails";
+import PaymentDetails, { PurchaseDetails } from "./InterfacePaymentDetails";
 
 export default class AppStore {
 	@observable isLoadingUsers: boolean = false;
@@ -10,14 +10,17 @@ export default class AppStore {
 	@observable payments: any[] = [];
 	@observable paymentNotification: {} = null;
 	@observable notes: any[] = [];
-	@observable isLoading: { 
-		users: boolean; 
+	@observable products: any[] = [];
+	@observable isLoading: {
+		users: boolean;
 		payments: boolean;
 		notes: boolean;
+		products: boolean;
 	} = {
 		users: false,
 		payments: false,
 		notes: false,
+		products: false
 	};
 
 	@action.bound
@@ -25,20 +28,10 @@ export default class AppStore {
 		const fn = "fetchUserPayments";
 		try {
 			this.isPaymentsLoading = true;
-			const data = await API.fetchUserPayments({ corrlinksId }).catch(
-				errors => {
-					console.log(fn, "there are some API errors", errors);
-				}
-			);
-			data &&
-				(this.payments = [
-					...removeItemsByFieldValue(
-						this.payments,
-						"corrlinks_id",
-						corrlinksId
-					),
-					...data
-				]);
+			const data = await API.fetchUserPayments({ corrlinksId }).catch(errors => {
+				console.log(fn, "there are some API errors", errors);
+			});
+			data && (this.payments = [...removeItemsByFieldValue(this.payments, "corrlinks_id", corrlinksId), ...data]);
 		} catch (e) {
 			console.log(fn, e);
 		}
@@ -75,10 +68,7 @@ export default class AppStore {
 		try {
 			this.isLoadingUsers = true;
 			await API.updateUser({ corrlinks_id, user });
-			this.users = [
-				...this.users.filter(a => a.corrlinks_id !== user.corrlinks_id),
-				user
-			];
+			this.users = [...this.users.filter(a => a.corrlinks_id !== user.corrlinks_id), user];
 			this.isLoadingUsers = false;
 		} catch (e) {
 			console.log(fn, e);
@@ -128,9 +118,7 @@ export default class AppStore {
 			const payment = Object.assign({}, paymentDetails);
 			delete payment.corrlinks_id;
 			payment.date_created = toYYYYMMDD(payment.date_created);
-			payment.date_subscription_ends = payment.date_subscription_ends?toYYYYMMDD(
-				payment.date_subscription_ends
-			):null;
+			payment.date_subscription_ends = payment.date_subscription_ends ? toYYYYMMDD(payment.date_subscription_ends) : null;
 
 			this.isLoadingUsers = true;
 			await API.addUserPayment({ corrlinks_id: user.corrlinks_id, payment });
@@ -145,13 +133,30 @@ export default class AppStore {
 	};
 
 	@action.bound
-	fetchUserNotes = async({corrlinks_id}) => {
+	submitPurchase = async (purchaseDetails: PurchaseDetails) => {
+		const fn = "submitPurchase";
+
+		try {
+			this.isLoadingUsers = true;
+			await API.postPurchase(purchaseDetails);
+			this.isLoadingUsers = false;
+		} catch (e) {
+			console.log(fn, e);
+			this.isLoadingUsers = false;
+			return false;
+		}
+		this.paymentNotification = { message: "done", type: "success" };
+		return true;
+	};
+
+	@action.bound
+	fetchUserNotes = async ({ corrlinks_id }) => {
 		const fn = "fetchUserNotes";
-		const stateVariable = 'notes';
+		const stateVariable = "notes";
 		try {
 			this.setLoading(stateVariable, true);
 
-			const notes = await API.fetchUserNotes({corrlinks_id}).catch(errors => {
+			const notes = await API.fetchUserNotes({ corrlinks_id }).catch(errors => {
 				console.log("there are some API errors", errors);
 			});
 			this.setLoading(stateVariable, false);
@@ -161,7 +166,26 @@ export default class AppStore {
 		}
 		this.setLoading(stateVariable, false);
 		return null;
-	}
+	};
+
+	@action.bound
+	fetchProducts = async () => {
+		const fn = "fetchProducts";
+		const stateVariable = "products";
+		try {
+			this.setLoading(stateVariable, true);
+
+			const data = await API.fetchProducts().catch(errors => {
+				console.log("there are some API errors", errors);
+			});
+			this.setLoading(stateVariable, false);
+			data && (this.products = [...data]);
+		} catch (e) {
+			console.log(fn, e);
+		}
+		this.setLoading(stateVariable, false);
+		return null;
+	};
 
 	@action.bound
 	addUserNote = async ({ corrlinks_id, note }) => {
@@ -179,7 +203,7 @@ export default class AppStore {
 			this.setLoading(stateVariable, false);
 		}
 		return [];
-	}
+	};
 
 	@action.bound
 	deleteUserNote = async ({ corrlinks_id, note_id }) => {
@@ -196,5 +220,4 @@ export default class AppStore {
 		}
 		return [];
 	};
-
 }

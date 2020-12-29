@@ -1,4 +1,5 @@
 import { create } from "apisauce";
+import { PurchaseDetails } from "../Store/InterfacePaymentDetails";
 
 class Auth {
 	logout(msg) {
@@ -81,6 +82,12 @@ class API {
 		return result;
 	};
 
+	postPurchase = async (pd: PurchaseDetails, options?): Promise<any> => {
+		const { amount } = pd;
+		const result = await this.api.post(`/user/${pd.corrlinks_id}/purchase/${pd.product_instance_id}`, { amount }, options);
+		return result;
+	};
+
 	fetchPhonebookEntries = async ({ corrlinks_id }, options?): Promise<any[]> => {
 		const response = await this.api.get(`phonebook/${corrlinks_id}`, options);
 
@@ -146,6 +153,15 @@ class API {
 		return [];
 	};
 
+	fetchProducts = async (options?): Promise<any[]> => {
+		const response = await this.api.get(`products`, options);
+		if (response.data && response.data["data"]) {
+			const data: [] = response.data["data"] as [];
+			return [...data];
+		}
+		return [];
+	};
+
 	addUserNote = async ({ corrlinks_id, note }, options?): Promise<any> => {
 		const newNote = await this.api.post(`users/${corrlinks_id}/notes`, { note }, options);
 		return newNote;
@@ -155,9 +171,6 @@ class API {
 		await this.api.delete(`/users/${corrlinks_id}/notes/${note_id}`, options);
 		return true;
 	};
-
-
-
 }
 
 export default new API();
