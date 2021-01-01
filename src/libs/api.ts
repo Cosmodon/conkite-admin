@@ -118,8 +118,8 @@ class API {
 		return [];
 	};
 
-	sendTextPhonebook = async ({ corrlinks_id, text, responseRequired = null }, options?): Promise<any[]> => {
-		const response = await this.api.put(`phonebook/${corrlinks_id}/process`, { text, responseRequired }, options);
+	sendTextPhonebook = async ({ corrlinks_id, text, account, responseRequired = null }, options?): Promise<any[]> => {
+		const response = await this.api.put(`phonebook/${corrlinks_id}/process`, { text, responseRequired, account }, options);
 
 		if (response.data && response.data["data"]) {
 			const data: [] = response.data["data"] as [];
@@ -137,8 +137,8 @@ class API {
 		return null;
 	};
 
-	sendToMessageFromCorrlinks = async ({ corrlinks_id, text, subject = "phonebook" }, options?): Promise<any[]> => {
-		const response = await this.api.post(`message-from-corrlinks`, { to: "na", from: `blank (${corrlinks_id})`, body: text, subject }, options);
+	sendToMessageFromCorrlinks = async ({ corrlinks_id, text, account, subject = "phonebook" }, options?): Promise<any[]> => {
+		const response = await this.api.post(`message-from-corrlinks`, { to: "na", from: `blank (${corrlinks_id})`, body: text, subject, account }, options);
 		console.log(response);
 		alert(response["data"]["data"]["message"] || response["data"]["data"]["status"]);
 		return null;

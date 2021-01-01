@@ -54,12 +54,12 @@ export default class PhonebookStore {
 	};
 
 	@action.bound
-	sendTextPhonebook = async ({ corrlinks_id, text, responseRequired = null }) => {
+	sendTextPhonebook = async ({ corrlinks_id, text, account, responseRequired = null }) => {
 		const fn = "sendTextPhonebook";
 		let result = "";
 		try {
 			this.setLoading(true);
-			const result = await API.sendTextPhonebook({ corrlinks_id, text, responseRequired });
+			const result = await API.sendTextPhonebook({ corrlinks_id, text, responseRequired, account });
 			this.setLoading(false);
 			return result;
 		} catch (e) {
@@ -71,12 +71,12 @@ export default class PhonebookStore {
 	};
 
 	@action.bound
-	sendToMessageFromCorrlinks = async ({ corrlinks_id, text, subject }) => {
+	sendToMessageFromCorrlinks = async ({ corrlinks_id, text, subject, account }) => {
 		const fn = "sendToMessageFromCorrlinks";
 		let result = "";
 		try {
 			this.setLoading(true);
-			const result = await API.sendToMessageFromCorrlinks({ corrlinks_id, text, subject });
+			const result = await API.sendToMessageFromCorrlinks({ corrlinks_id, text, subject, account });
 			this.setLoading(false);
 			return result;
 		} catch (e) {
