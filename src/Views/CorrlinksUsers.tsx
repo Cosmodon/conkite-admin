@@ -97,6 +97,13 @@ class App extends React.Component<{
 						},
 					},
 					{
+						title: "Phonebook Entries",
+						field: "phonebook_entries_allowed",
+						defaultSort: "desc",
+						editable: "always",
+						initialEditValue: 15,
+					},
+					{
 						title: "Email",
 						field: "corrlinks_account",
 						defaultSort: "desc",
