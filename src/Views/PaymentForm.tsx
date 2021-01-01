@@ -112,7 +112,7 @@ class PaymentForm extends React.Component<{
 			return "-";
 		}
 		const date = new Date(usersIdx[corrlinks_id].date_subscription_ends);
-		return date.toLocaleDateString();
+		return date.toLocaleDateString('en-US');
 	}
 
 	getCurrentPhonebookSubEndDate(corrlinks_id) {
@@ -122,7 +122,7 @@ class PaymentForm extends React.Component<{
 			return "-";
 		}
 		const date = new Date(usersIdx[corrlinks_id].date_phonebook_subscription_ends);
-		return date.toLocaleDateString();
+		return date.toLocaleDateString('en-US');
 	}
 
 	render() {
