@@ -19,6 +19,7 @@ export const PhonebookTest: React.FC<Props> = props => {
 
 	const [text, setText] = useState("");
 	const [subject, setSubject] = useState("");
+	const [account, setAccount] = useState("");
 	const [corrlinks_id, setCorrlinks_id] = useState("");
 	const [response, setResponse] = useState("null");
 	const phonebookStore: PhonebookStore = usePhonebookStore();
@@ -28,12 +29,12 @@ export const PhonebookTest: React.FC<Props> = props => {
 	}, [userStore]);
 
 	const sendText = async event => {
-		const result: any = await phonebookStore.sendTextPhonebook({ corrlinks_id, text, responseRequired: 'EMAIL_TEXT' });
+		const result: any = await phonebookStore.sendTextPhonebook({ corrlinks_id, text, account, responseRequired: 'EMAIL_TEXT' });
 		console.log(result);
 		setResponse(result);
 	};
 	const sendToMessageFromCorrlinks = async subject => {
-		const result: any = await phonebookStore.sendToMessageFromCorrlinks({ corrlinks_id, text, subject });
+		const result: any = await phonebookStore.sendToMessageFromCorrlinks({ corrlinks_id, text, subject, account });
 		console.log(result);
 		setResponse(result);
 	};
@@ -65,6 +66,7 @@ export const PhonebookTest: React.FC<Props> = props => {
 				<Button variant="outlined" disabled={!corrlinks_id} onClick={getPhonebook}>Get Phonebook email</Button>
 				
 				<Input style={{border:'1px solid black'}} placeholder="Subject" value={subject} onChange={setValue(setSubject)} rows={20} fullWidth />
+				<Input style={{border:'1px solid black'}} placeholder="account" value={account} onChange={setValue(setAccount)} rows={20} fullWidth />
 				<Input style={{border:'1px solid black'}} placeholder="email" value={text} onChange={setValue(setText)} rows={20} fullWidth multiline />
 
 				<Button variant="outlined" disabled={!corrlinks_id} onClick={sendText}>Send Phonebook email to process</Button>
