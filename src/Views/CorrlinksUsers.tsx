@@ -61,7 +61,7 @@ class App extends React.Component<{
 						editable: "always"
 					},
 					{
-						title: "messagine subscription end date",
+						title: "messaging subscription end date",
 						field: "date_subscription_ends",
 						defaultSort: "desc",
 						editable: "always",
