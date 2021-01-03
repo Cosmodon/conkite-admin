@@ -241,7 +241,13 @@ class PaymentForm extends React.Component<{
 															name="product_instance_id"
 															id="product_instance_id"
 															value={props.values.product_instance_id}
-															onChange={props.handleChange}
+															onChange={(e, selected) => {
+																props.handleChange(e);
+																const cost = this.state.productsIdx[props.values.product_type].instances.filter(
+																	i => i.product_instances_id === selected["props"].value
+																)[0].cost;
+																props.setFieldValue("amount", cost);
+															}}
 														>
 															{this.state.productsIdx[props.values.product_type].instances.map(product_instance => (
 																<MenuItem
