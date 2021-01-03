@@ -83,8 +83,8 @@ class API {
 	};
 
 	postPurchase = async (pd: PurchaseDetails, options?): Promise<any> => {
-		const { amount } = pd;
-		const result = await this.api.post(`/user/${pd.corrlinks_id}/purchase/${pd.product_instance_id}`, { amount }, options);
+		const { amount, comment } = pd;
+		const result = await this.api.post(`/user/${pd.corrlinks_id}/purchase/${pd.product_instance_id}`, { amount, comment }, options);
 		return result;
 	};
 
