@@ -115,12 +115,12 @@ class App extends React.Component<{
 						defaultSort: "desc",
 						editable: "always"
 					},
-					{
-						title: "Notes",
-						field: "notes",
-						defaultSort: "desc",
-						editable: "always"
-					},
+					//{
+					//	title: "Notes",
+					//	field: "notes",
+					//	defaultSort: "desc",
+					//	editable: "always"
+					//},
 					// {
 					//	title: "Uses Phonebook?",
 					//	field: "use_phonebook",
