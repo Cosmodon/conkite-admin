@@ -7,6 +7,22 @@ import { toJS } from "mobx";
 import { formatDate, formatDateMMDDYYYYfromYYYYMMDD, correctTimezone, saveChangeDateCurry } from "../libs/common";
 import PaymentsNotesTabs from "./PaymentOrNotesTabs";
 
+
+const extractDatePart = value => {
+	return (new Date(value).toJSON() || "").substr(0, 10);
+};
+const toInt = value =>
+	parseInt(
+		extractDatePart(value)
+			.split("-")
+			.join("")
+	);
+const subscribed = value => {
+	let subdate = toInt(value);
+	let todaydate = toInt(new Date());
+	return todaydate > subdate;
+};
+
 @inject("store")
 @observer
 class App extends React.Component<{
@@ -18,20 +34,6 @@ class App extends React.Component<{
 	}
 
 	render() {
-		const extractDatePart = value => {
-			return (new Date(value).toJSON() || "").substr(0, 10);
-		};
-		const toInt = value =>
-			parseInt(
-				extractDatePart(value)
-					.split("-")
-					.join("")
-			);
-		const subscribed = value => {
-			let subdate = toInt(value);
-			let todaydate = toInt(new Date());
-			return todaydate > subdate;
-		};
 		return (
 			<MaterialTable
 				isLoading={this.props.store.app.isLoadingUsers}
@@ -92,6 +94,7 @@ class App extends React.Component<{
 						defaultSort: "desc",
 						editable: "never",
 						render: props => {
+							if (!props) return null;
 							const color = subscribed(props.date_phonebook_subscription_ends) ? "red" : "green";
 							return <Typography style={{ color }}>{formatDateMMDDYYYYfromYYYYMMDD(props.date_phonebook_subscription_ends)}</Typography>;
 						},

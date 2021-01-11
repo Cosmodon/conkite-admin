@@ -174,14 +174,14 @@ class PaymentForm extends React.Component<{
 												{props.errors.corrlinks_id && props.touched.corrlinks_id && <div>{props.errors.corrlinks_id}</div>}
 											</TableCell>
 										</TableRow>
-										<TableRow>
+										{/* <TableRow>
 											<TableCell>Current Messaging Sub End Date:</TableCell>
 											<TableCell>{this.getCurrentSubEndDate(props.values.corrlinks_id)}</TableCell>
 										</TableRow>
 										<TableRow>
 											<TableCell>Current Phonebook Sub End Date:</TableCell>
 											<TableCell>{this.getCurrentPhonebookSubEndDate(props.values.corrlinks_id)}</TableCell>
-										</TableRow>
+										</TableRow> */}
 										<TableRow>
 											<TableCell>Amount</TableCell>
 											<TableCell>
