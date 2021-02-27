@@ -10,7 +10,7 @@ class Auth {
 	}
 }
 
-export const endpoints: Array<string> = ["https://theeblvd.ngrok.io", "http://localhost:3000"];
+export const endpoints: Array<string> = ["https://theeblvd.ngrok.io", "http://localhost:3000/dev"];
 
 class API {
 	auth = new Auth();
@@ -63,7 +63,11 @@ class API {
 	};
 
 	updateUser = async ({ corrlinks_id, user }, options?): Promise<boolean> => {
-		await this.api.put(`/users/${corrlinks_id}`, user, options);
+		const result = await this.api.put(`/users/${corrlinks_id}`, user, options);
+		if (!result.ok){
+			console.log({result});
+			throw new Error(result.originalError.message);
+		}
 		return user;
 	};
 

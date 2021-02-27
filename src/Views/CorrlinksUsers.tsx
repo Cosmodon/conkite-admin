@@ -188,7 +188,7 @@ class App extends React.Component<{
 									corrlinks_id,
 									user: newData
 								});
-								resolve();
+								resolve(null);
 							} catch (e) {
 								reject();
 							}
@@ -199,7 +199,7 @@ class App extends React.Component<{
 								await this.props.store.app.deleteUser({
 									corrlinks_id: oldData.corrlinks_id
 								});
-								resolve();
+								resolve(null);
 							} catch (e) {
 								console.log(e);
 								alert(e);
@@ -211,7 +211,7 @@ class App extends React.Component<{
 							try {
 								validate(newData);
 								await this.props.store.app.addUser({ user: newData });
-								resolve();
+								resolve(null);
 							} catch (e) {
 								console.log(e);
 								alert(e);

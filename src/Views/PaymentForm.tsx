@@ -66,8 +66,10 @@ class PaymentForm extends React.Component<{
 	onSubmit = async (values, props) => {
 		this.setState(Object.assign({}, this.state, { busy: true }));
 		let result;
+
 		switch (values.product_type) {
 			case ADHOC:
+				values.product_instance_id = this.state.productsIdx[values.product_type].instances[0].product_instances_id;
 				result = await this.props.store.app.submitPayment(values);
 				break;
 			case MESSAGING:
@@ -101,7 +103,7 @@ class PaymentForm extends React.Component<{
 			corrlinks_id: "",
 			date_subscription_ends: null,
 			product_type: 4, // adhoc
-			product_instance_id: 0
+			product_instance_id: null
 		};
 	}
 
@@ -112,17 +114,22 @@ class PaymentForm extends React.Component<{
 			return "-";
 		}
 		const date = new Date(usersIdx[corrlinks_id].date_subscription_ends);
-		return date.toLocaleDateString('en-US');
+		return date.toLocaleDateString("en-US");
 	}
 
 	getCurrentPhonebookSubEndDate(corrlinks_id) {
 		const { usersIdx } = this.state;
 		const user = usersIdx[corrlinks_id];
-		if (!corrlinks_id || !user || !usersIdx[corrlinks_id].date_phonebook_subscription_ends || usersIdx[corrlinks_id].date_phonebook_subscription_ends==='null') {
+		if (
+			!corrlinks_id ||
+			!user ||
+			!usersIdx[corrlinks_id].date_phonebook_subscription_ends ||
+			usersIdx[corrlinks_id].date_phonebook_subscription_ends === "null"
+		) {
 			return "-";
 		}
 		const date = new Date(usersIdx[corrlinks_id].date_phonebook_subscription_ends);
-		return date.toLocaleDateString('en-US');
+		return date.toLocaleDateString("en-US");
 	}
 
 	render() {
@@ -182,13 +189,6 @@ class PaymentForm extends React.Component<{
 											<TableCell>Current Phonebook Sub End Date:</TableCell>
 											<TableCell>{this.getCurrentPhonebookSubEndDate(props.values.corrlinks_id)}</TableCell>
 										</TableRow> */}
-										<TableRow>
-											<TableCell>Amount</TableCell>
-											<TableCell>
-												<TextField required fullWidth name="amount" id="amount" value={props.values.amount} onChange={props.handleChange} />
-												{props.errors.amount && props.touched.amount && <div>{props.errors.amount}</div>}
-											</TableCell>
-										</TableRow>
 										<TableRow>
 											<TableCell>Product</TableCell>
 											<TableCell>
@@ -255,7 +255,7 @@ class PaymentForm extends React.Component<{
 																	value={product_instance.product_instances_id}
 																	style={{ textTransform: "capitalize" }}
 																>
-																	{product_instance.months}
+																	{product_instance.months} {product_instance.months > 1 ? "months" : "month"} = {product_instance.cost}
 																</MenuItem>
 															))}
 														</Select>
@@ -265,9 +265,21 @@ class PaymentForm extends React.Component<{
 										)}
 
 										<TableRow>
+											<TableCell>Amount</TableCell>
+											<TableCell>
+												<TextField required fullWidth name="amount" id="amount" value={props.values.amount} onChange={props.handleChange} />
+												{props.errors.amount && props.touched.amount && <div>{props.errors.amount}</div>}
+											</TableCell>
+										</TableRow>
+
+										<TableRow>
 											<TableCell>Comment</TableCell>
 											<TableCell>
 												<TextField fullWidth multiline rows="3" name="comment" value={props.values.comment} onChange={props.handleChange}></TextField>
+												<span>
+													{JSON.stringify(this.hasChanges(props))}
+													{JSON.stringify(props.isValid)}
+												</span>
 											</TableCell>
 										</TableRow>
 										<TableRow>
@@ -281,7 +293,7 @@ class PaymentForm extends React.Component<{
 													) : (
 														<Button
 															variant="outlined"
-															disabled={!(this.hasChanges(props) && props.isValid)}
+															disabled={!this.hasChanges(props) && !props.isValid}
 															onClick={(e: any) => props.handleSubmit(e)}
 														>
 															Save & Next
