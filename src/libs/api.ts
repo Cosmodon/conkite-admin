@@ -10,7 +10,7 @@ class Auth {
 	}
 }
 
-export const endpoints: Array<string> = ["https://theeblvd.ngrok.io", "http://localhost:3000/dev"];
+export const endpoints: Array<string> = ["https://theeblvd.ngrok.io", "http://localhost:3000", "http://localhost:4000/dev"];
 
 class API {
 	auth = new Auth();
@@ -26,7 +26,7 @@ class API {
 		};
 		this.api.addMonitor(naviMonitor);
 		if (window.location.href.includes("localhost")) {
-			this.setEndpoint(endpoints[1]);
+			this.setEndpoint(endpoints[2]);
 		}
 	}
 	setEndpoint(endpoint: string) {
@@ -34,8 +34,9 @@ class API {
 			baseURL: endpoint,
 			headers: { Accept: "application/json" }
 		});
+		console.log(`Endpoint set to ${endpoint}`);
 	}
-	getEndpoint(): string {
+	get getEndpoint (): string {
 		return this.api.getBaseURL();
 	}
 	getEndpoints(): Array<string> {

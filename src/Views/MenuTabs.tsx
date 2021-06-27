@@ -86,7 +86,7 @@ class SimpleTabs extends React.Component<{
 
 				{window.location.host.includes("localhost") && (
 					<Select
-						value={API.getEndpoint()}
+						value={API.getEndpoint}
 						onChange={a => {
 							const v = a.target.value as string;
 							API.setEndpoint(v);

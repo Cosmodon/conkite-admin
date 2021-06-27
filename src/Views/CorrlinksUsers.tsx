@@ -153,6 +153,30 @@ class App extends React.Component<{
 							return <DatePicker value={correctTimezone(props.value)} onChange={saveChangeDateCurry(props)} />;
 						}
 					},
+					{
+						title: "Adhoc Phoonebook StartDate",
+						field: "adhoc_phonebook_edit_window_date_start",
+						defaultSort: "desc",
+						editable: "onUpdate",
+						render: props => {
+							return <Typography>{formatDate(props ? formatDateMMDDYYYYfromYYYYMMDD(props.adhoc_phonebook_edit_window_date_start) : "-")}</Typography>;
+						},
+						editComponent: props => {
+							return <DatePicker value={correctTimezone(props.value)} onChange={saveChangeDateCurry(props)} />;
+						}
+					},
+					{
+						title: "Adhoc Phoonebook EndDate",
+						field: "adhoc_phonebook_edit_window_date_end",
+						defaultSort: "desc",
+						editable: "onUpdate",
+						render: props => {
+							return <Typography>{formatDate(props ? formatDateMMDDYYYYfromYYYYMMDD(props.adhoc_phonebook_edit_window_date_end) : "-")}</Typography>;
+						},
+						editComponent: props => {
+							return <DatePicker value={correctTimezone(props.value)} onChange={saveChangeDateCurry(props)} />;
+						}
+					},
 					// {
 					//	title: "Email",
 					//	field: "corrlinks_account",
