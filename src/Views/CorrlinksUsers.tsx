@@ -100,12 +100,45 @@ class App extends React.Component<{
 						},
 					},
 					{
-						title: "Phonebook Entries",
-						field: "phonebook_entries_allowed",
+						title: "horoscope subscription end date",
+						field: "date_horoscope_subscription_ends",
 						defaultSort: "desc",
-						editable: "always",
-						initialEditValue: 15,
+						editable: "never",
+						render: props => {
+							if (!props) return null;
+							const color = subscribed(props.date_horoscope_subscription_ends) ? "red" : "green";
+							return <Typography style={{ color }}>{formatDateMMDDYYYYfromYYYYMMDD(props.date_horoscope_subscription_ends)}</Typography>;
+						},
 					},
+					{
+						title: "news subscription end date",
+						field: "date_news_subscription_ends",
+						defaultSort: "desc",
+						editable: "never",
+						render: props => {
+							if (!props) return null;
+							const color = subscribed(props.date_news_subscription_ends) ? "red" : "green";
+							return <Typography style={{ color }}>{formatDateMMDDYYYYfromYYYYMMDD(props.date_news_subscription_ends)}</Typography>;
+						},
+					},
+					{
+						title: "sports subscription end date",
+						field: "date_sports_subscription_ends",
+						defaultSort: "desc",
+						editable: "never",
+						render: props => {
+							if (!props) return null;
+							const color = subscribed(props.date_sports_subscription_ends) ? "red" : "green";
+							return <Typography style={{ color }}>{formatDateMMDDYYYYfromYYYYMMDD(props.date_sports_subscription_ends)}</Typography>;
+						},
+					},
+					//{
+					//	title: "Phonebook Entries",
+					//	field: "phonebook_entries_allowed",
+					//	defaultSort: "desc",
+					//	editable: "always",
+					//	initialEditValue: 15,
+					//},
 					{
 						title: "Email",
 						field: "corrlinks_account",

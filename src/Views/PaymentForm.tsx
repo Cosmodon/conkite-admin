@@ -9,6 +9,9 @@ import { toJS } from "mobx";
 const MESSAGING = 2;
 const PHONEBOOK = 3;
 const ADHOC = 4;
+const HOROSCOPE = 5;
+const NEWS = 6;
+const SPORTS = 7;
 
 @inject("store")
 @observer
@@ -78,6 +81,14 @@ class PaymentForm extends React.Component<{
 			case PHONEBOOK:
 				result = await this.props.store.app.submitPurchase(values);
 				break;
+			case HOROSCOPE:
+				result = await this.props.store.app.submitPurchase(values);
+				break;
+			case NEWS:
+				result = await this.props.store.app.submitPurchase(values);
+				break;
+			case SPORTS:
+				result = await this.props.store.app.submitPurchase(values);
 			default:
 				break;
 		}
@@ -129,6 +140,51 @@ class PaymentForm extends React.Component<{
 			return "-";
 		}
 		const date = new Date(usersIdx[corrlinks_id].date_phonebook_subscription_ends);
+		return date.toLocaleDateString("en-US");
+	}
+
+	getCurrentHoroscopeSubEndDate(corrlinks_id) {
+		const { usersIdx } = this.state;
+		const user = usersIdx[corrlinks_id];
+		if (
+			!corrlinks_id ||
+			!user ||
+			!usersIdx[corrlinks_id].date_horoscope_subscription_ends ||
+			usersIdx[corrlinks_id].date_horoscope_subscription_ends === "null"
+		) {
+			return "-";
+		}
+		const date = new Date(usersIdx[corrlinks_id].date_horoscope_subscription_ends);
+		return date.toLocaleDateString("en-US");
+	}
+
+	getCurrentNewsSubEndDate(corrlinks_id) {
+		const { usersIdx } = this.state;
+		const user = usersIdx[corrlinks_id];
+		if (
+			!corrlinks_id ||
+			!user ||
+			!usersIdx[corrlinks_id].date_news_subscription_ends ||
+			usersIdx[corrlinks_id].date_news_subscription_ends === "null"
+		) {
+			return "-";
+		}
+		const date = new Date(usersIdx[corrlinks_id].date_news_subscription_ends);
+		return date.toLocaleDateString("en-US");
+	}
+
+	getCurrentSportsSubEndDate(corrlinks_id) {
+		const { usersIdx } = this.state;
+		const user = usersIdx[corrlinks_id];
+		if (
+			!corrlinks_id ||
+			!user ||
+			!usersIdx[corrlinks_id].date_sports_subscription_ends ||
+			usersIdx[corrlinks_id].date_sports_subscription_ends === "null"
+		) {
+			return "-";
+		}
+		const date = new Date(usersIdx[corrlinks_id].date_sports_subscription_ends);
 		return date.toLocaleDateString("en-US");
 	}
 
@@ -229,7 +285,7 @@ class PaymentForm extends React.Component<{
 											</>
 										)}
 
-										{(props.values.product_type === MESSAGING || props.values.product_type === PHONEBOOK) && (
+										{(props.values.product_type === MESSAGING || props.values.product_type === PHONEBOOK || props.values.product_type === HOROSCOPE || props.values.product_type === NEWS || props.values.product_type === SPORTS) && (
 											<>
 												<TableRow>
 													<TableCell>Months</TableCell>
