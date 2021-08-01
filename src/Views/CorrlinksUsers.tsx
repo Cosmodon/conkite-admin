@@ -97,7 +97,7 @@ class App extends React.Component<{
 							if (!props) return null;
 							const color = subscribed(props.date_phonebook_subscription_ends) ? "red" : "green";
 							return <Typography style={{ color }}>{formatDateMMDDYYYYfromYYYYMMDD(props.date_phonebook_subscription_ends)}</Typography>;
-						},
+						}
 					},
 					{
 						title: "horoscope subscription end date",
@@ -108,7 +108,7 @@ class App extends React.Component<{
 							if (!props) return null;
 							const color = subscribed(props.date_horoscope_subscription_ends) ? "red" : "green";
 							return <Typography style={{ color }}>{formatDateMMDDYYYYfromYYYYMMDD(props.date_horoscope_subscription_ends)}</Typography>;
-						},
+						}
 					},
 					{
 						title: "news subscription end date",
@@ -119,7 +119,7 @@ class App extends React.Component<{
 							if (!props) return null;
 							const color = subscribed(props.date_news_subscription_ends) ? "red" : "green";
 							return <Typography style={{ color }}>{formatDateMMDDYYYYfromYYYYMMDD(props.date_news_subscription_ends)}</Typography>;
-						},
+						}
 					},
 					{
 						title: "sports subscription end date",
