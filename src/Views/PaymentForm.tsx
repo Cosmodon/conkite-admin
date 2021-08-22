@@ -89,6 +89,7 @@ class PaymentForm extends React.Component<{
 				break;
 			case SPORTS:
 				result = await this.props.store.app.submitPurchase(values);
+				break;
 			default:
 				break;
 		}
