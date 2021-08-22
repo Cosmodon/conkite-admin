@@ -7,6 +7,9 @@ export interface IUser {
 	date_created: string;
 	date_released: string;
 	date_subscription_ends: string;
+	adhoc_phonebook_edit_window_date_end: string;
+	adhoc_phonebook_edit_window_date_start: string;
+
 }
 
 export class User implements IUser {
