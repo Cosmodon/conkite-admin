@@ -132,11 +132,12 @@ class App extends React.Component<{
 							return <Typography style={{ color }}>{formatDateMMDDYYYYfromYYYYMMDD(props.date_sports_subscription_ends)}</Typography>;
 						},
 					},
-					{title: "Conkite Credits",
-					field: "credits",
-					defaultSort: "desc",
-					editable: "always",
-					initialEditValue: 0,
+					{
+						title: "Conkite Credits",
+						field: "credits",
+						defaultSort: "desc",
+						editable: "always",
+						initialEditValue: 0,
 					},
 					//{
 					//	title: "Phonebook Entries",
