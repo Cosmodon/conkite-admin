@@ -63,7 +63,7 @@ class App extends React.Component<{
 						editable: "always"
 					},
 					{
-						title: "messaging subscription end date",
+						title: "messaging expiration date",
 						field: "date_subscription_ends",
 						defaultSort: "desc",
 						editable: "always",
@@ -78,18 +78,18 @@ class App extends React.Component<{
 							return <DatePicker value={correctTimezone(props.value)} onChange={saveChangeDateCurry(props)} />;
 						}
 					},
+					//{
+					//	title: "Inmate Status",
+					//	field: "date_subscription_ends",
+					//	defaultSort: "desc",
+					//	editable: "never",
+					//	render: props => {
+					//		const color = subscribed(props.date_subscription_ends) ? "red" : "green";
+					//		return <Typography style={{ color }}>{color === "red" ? "UNPAID" : "PAID"}</Typography>;
+					//	}
+					//},
 					{
-						title: "Inmate Status",
-						field: "date_subscription_ends",
-						defaultSort: "desc",
-						editable: "never",
-						render: props => {
-							const color = subscribed(props.date_subscription_ends) ? "red" : "green";
-							return <Typography style={{ color }}>{color === "red" ? "UNPAID" : "PAID"}</Typography>;
-						}
-					},
-					{
-						title: "phonebook subscription end date",
+						title: "phonebook expiration date",
 						field: "date_phonebook_subscription_ends",
 						defaultSort: "desc",
 						editable: "never",
@@ -100,7 +100,7 @@ class App extends React.Component<{
 						}
 					},
 					{
-						title: "horoscope subscription end date",
+						title: "horoscope expiration date",
 						field: "date_horoscope_subscription_ends",
 						defaultSort: "desc",
 						editable: "never",
@@ -111,7 +111,7 @@ class App extends React.Component<{
 						}
 					},
 					{
-						title: "news subscription end date",
+						title: "news expiration date",
 						field: "date_news_subscription_ends",
 						defaultSort: "desc",
 						editable: "never",
@@ -122,7 +122,7 @@ class App extends React.Component<{
 						}
 					},
 					{
-						title: "sports subscription end date",
+						title: "sports expiration date",
 						field: "date_sports_subscription_ends",
 						defaultSort: "desc",
 						editable: "never",
@@ -131,6 +131,12 @@ class App extends React.Component<{
 							const color = subscribed(props.date_sports_subscription_ends) ? "red" : "green";
 							return <Typography style={{ color }}>{formatDateMMDDYYYYfromYYYYMMDD(props.date_sports_subscription_ends)}</Typography>;
 						},
+					},
+					{title: "Conkite Credits",
+					field: "credits",
+					defaultSort: "desc",
+					editable: "always",
+					initialEditValue: 0,
 					},
 					//{
 					//	title: "Phonebook Entries",
@@ -187,7 +193,7 @@ class App extends React.Component<{
 						}
 					},
 					{
-						title: "Adhoc Phoonebook StartDate",
+						title: "Phoonebook Upgrqde Start Date",
 						field: "adhoc_phonebook_edit_window_date_start",
 						defaultSort: "desc",
 						editable: "onUpdate",
@@ -199,7 +205,7 @@ class App extends React.Component<{
 						}
 					},
 					{
-						title: "Adhoc Phoonebook EndDate",
+						title: "Phoonebook Upgrade End Date",
 						field: "adhoc_phonebook_edit_window_date_end",
 						defaultSort: "desc",
 						editable: "onUpdate",
