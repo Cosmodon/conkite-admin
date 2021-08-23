@@ -76,19 +76,19 @@ class PaymentForm extends React.Component<{
 				result = await this.props.store.app.submitPayment(values);
 				break;
 			case MESSAGING:
-				result = await this.props.store.app.submitPayment(values);
+				result = await this.props.store.app.submitPurchase(values);
 				break;
 			case PHONEBOOK:
-				result = await this.props.store.app.submitPayment(values);
+				result = await this.props.store.app.submitPurchase(values);
 				break;
 			case HOROSCOPE:
-				result = await this.props.store.app.submitPayment(values);
+				result = await this.props.store.app.submitPurchase(values);
 				break;
 			case NEWS:
-				result = await this.props.store.app.submitPayment(values);
+				result = await this.props.store.app.submitPurchase(values);
 				break;
 			case SPORTS:
-				result = await this.props.store.app.submitPayment(values);
+				result = await this.props.store.app.submitPurchase(values);
 				break;
 			default:
 				break;
