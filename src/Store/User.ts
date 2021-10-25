@@ -27,7 +27,7 @@ export class User implements IUser {
 	date_horoscope_subscription_ends: string;
 	date_sports_subscription_ends: string;
 	date_investments_subscription_ends: string;
-	credits: Number;
+	credits: number;
 
 	constructor(user: IUser){
 		Object.assign(this, user);
