@@ -97,6 +97,9 @@ class App extends React.Component<{
 							if (!props) return null;
 							const color = subscribed(props.date_phonebook_subscription_ends) ? "red" : "green";
 							return <Typography style={{ color }}>{formatDateMMDDYYYYfromYYYYMMDD(props.date_phonebook_subscription_ends)}</Typography>;
+						},
+						editComponent: props => {
+							return <DatePicker value={correctTimezone(props.value)} onChange={saveChangeDateCurry(props)} />;
 						}
 					},
 					{
@@ -108,6 +111,9 @@ class App extends React.Component<{
 							if (!props) return null;
 							const color = subscribed(props.date_horoscope_subscription_ends) ? "red" : "green";
 							return <Typography style={{ color }}>{formatDateMMDDYYYYfromYYYYMMDD(props.date_horoscope_subscription_ends)}</Typography>;
+						},
+						editComponent: props => {
+							return <DatePicker value={correctTimezone(props.value)} onChange={saveChangeDateCurry(props)} />;
 						}
 					},
 					{
@@ -119,6 +125,9 @@ class App extends React.Component<{
 							if (!props) return null;
 							const color = subscribed(props.date_news_subscription_ends) ? "red" : "green";
 							return <Typography style={{ color }}>{formatDateMMDDYYYYfromYYYYMMDD(props.date_news_subscription_ends)}</Typography>;
+						},
+						editComponent: props => {
+							return <DatePicker value={correctTimezone(props.value)} onChange={saveChangeDateCurry(props)} />;
 						}
 					},
 					{
@@ -130,6 +139,9 @@ class App extends React.Component<{
 							if (!props) return null;
 							const color = subscribed(props.date_sports_subscription_ends) ? "red" : "green";
 							return <Typography style={{ color }}>{formatDateMMDDYYYYfromYYYYMMDD(props.date_sports_subscription_ends)}</Typography>;
+						},
+						editComponent: props => {
+							return <DatePicker value={correctTimezone(props.value)} onChange={saveChangeDateCurry(props)} />;
 						}
 					},
 					{
@@ -141,6 +153,9 @@ class App extends React.Component<{
 							if (!props) return null;
 							const color = subscribed(props.date_investments_subscription_ends) ? "red" : "green";
 							return <Typography style={{ color }}>{formatDateMMDDYYYYfromYYYYMMDD(props.date_investments_subscription_ends)}</Typography>;
+						},
+						editComponent: props => {
+							return <DatePicker value={correctTimezone(props.value)} onChange={saveChangeDateCurry(props)} />;
 						}
 					},
 					{
