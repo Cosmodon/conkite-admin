@@ -134,13 +134,13 @@ class App extends React.Component<{
 					},
 					{
 						title: "investments expiration date",
-						field: "investment_subscription_ends",
+						field: "date_investments_subscription_ends",
 						defaultSort: "desc",
 						editable: "always",
 						render: props => {
 							if (!props) return null;
-							const color = subscribed(props.date_investment_subscription_ends) ? "red" : "green";
-							return <Typography style={{ color }}>{formatDateMMDDYYYYfromYYYYMMDD(props.date_investment_subscription_ends)}</Typography>;
+							const color = subscribed(props.date_investments_subscription_ends) ? "red" : "green";
+							return <Typography style={{ color }}>{formatDateMMDDYYYYfromYYYYMMDD(props.date_investments_subscription_ends)}</Typography>;
 						}
 					},
 					{
