@@ -92,7 +92,7 @@ class App extends React.Component<{
 						title: "phonebook expiration date",
 						field: "date_phonebook_subscription_ends",
 						defaultSort: "desc",
-						editable: "never",
+						editable: "always",
 						render: props => {
 							if (!props) return null;
 							const color = subscribed(props.date_phonebook_subscription_ends) ? "red" : "green";
@@ -103,7 +103,7 @@ class App extends React.Component<{
 						title: "horoscope expiration date",
 						field: "date_horoscope_subscription_ends",
 						defaultSort: "desc",
-						editable: "never",
+						editable: "always",
 						render: props => {
 							if (!props) return null;
 							const color = subscribed(props.date_horoscope_subscription_ends) ? "red" : "green";
@@ -114,7 +114,7 @@ class App extends React.Component<{
 						title: "news expiration date",
 						field: "date_news_subscription_ends",
 						defaultSort: "desc",
-						editable: "never",
+						editable: "always",
 						render: props => {
 							if (!props) return null;
 							const color = subscribed(props.date_news_subscription_ends) ? "red" : "green";
@@ -125,12 +125,23 @@ class App extends React.Component<{
 						title: "sports expiration date",
 						field: "date_sports_subscription_ends",
 						defaultSort: "desc",
-						editable: "never",
+						editable: "always",
 						render: props => {
 							if (!props) return null;
 							const color = subscribed(props.date_sports_subscription_ends) ? "red" : "green";
 							return <Typography style={{ color }}>{formatDateMMDDYYYYfromYYYYMMDD(props.date_sports_subscription_ends)}</Typography>;
-						},
+						}
+					},
+					{
+						title: "investments expiration date",
+						field: "investment_subscription_ends",
+						defaultSort: "desc",
+						editable: "always",
+						render: props => {
+							if (!props) return null;
+							const color = subscribed(props.date_investment_subscription_ends) ? "red" : "green";
+							return <Typography style={{ color }}>{formatDateMMDDYYYYfromYYYYMMDD(props.date_investment_subscription_ends)}</Typography>;
+						}
 					},
 					{
 						title: "Conkite Credits",
