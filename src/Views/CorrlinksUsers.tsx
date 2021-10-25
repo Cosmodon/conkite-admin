@@ -163,7 +163,7 @@ class App extends React.Component<{
 						field: "credits",
 						defaultSort: "desc",
 						editable: "always",
-						initialEditValue: 0,
+						type: "numeric",
 					},
 					//{
 					//	title: "Phonebook Entries",
