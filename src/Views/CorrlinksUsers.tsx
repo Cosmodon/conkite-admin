@@ -78,16 +78,16 @@ class App extends React.Component<{
 							return <DatePicker value={correctTimezone(props.value)} onChange={saveChangeDateCurry(props)} />;
 						}
 					},
-					//{
-					//	title: "Inmate Status",
-					//	field: "date_subscription_ends",
-					//	defaultSort: "desc",
-					//	editable: "never",
-					//	render: props => {
-					//		const color = subscribed(props.date_subscription_ends) ? "red" : "green";
-					//		return <Typography style={{ color }}>{color === "red" ? "UNPAID" : "PAID"}</Typography>;
-					//	}
-					//},
+					{
+						title: "Inmate Status",
+						field: "date_subscription_ends",
+						defaultSort: "desc",
+						editable: "never",
+						render: props => {
+							const color = subscribed(props.date_subscription_ends) ? "red" : "green";
+							return <Typography style={{ color }}>{color === "red" ? "UNPAID" : "PAID"}</Typography>;
+						}
+					},
 					{
 						title: "phonebook expiration date",
 						field: "date_phonebook_subscription_ends",
