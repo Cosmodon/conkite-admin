@@ -2,7 +2,7 @@ import React from "react";
 import { inject, observer } from "mobx-react";
 import MaterialTable from "material-table";
 import { DatePicker } from "@material-ui/pickers";
-import { Typography } from "@material-ui/core";
+import { MenuItem, Select, Typography } from "@material-ui/core";
 import { toJS } from "mobx";
 import { formatDate, formatDateMMDDYYYYfromYYYYMMDD, correctTimezone, saveChangeDateCurry } from "../libs/common";
 import PaymentsNotesTabs from "./PaymentOrNotesTabs";
@@ -67,7 +67,7 @@ class App extends React.Component<{
 						field: "date_created",
 						defaultSort: "desc",
 						editable: "always"
-					}
+					},
 				 	{
 					 	title: "INMATE STATUS",
 					 	field: "status",
