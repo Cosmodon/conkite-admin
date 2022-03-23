@@ -14,6 +14,8 @@
     "@types/react": "16.9.9",
     "@types/react-dom": "16.9.2",
     "apisauce": "^2.1.5",
+    "browserlist": "^1.0.1",
+    "browserslist": "^4.20.2",
     "check-peer-dependencies": "^4.1.0",
     "dateformat": "^3.0.3",
     "formik": "^2.0.7",
@@ -40,11 +42,10 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
+  "browserslist": [
+    "defaults",
+    "not IE 11",
+    "maintained node versions"
     ],
     "development": [
       "last 1 chrome version",
@@ -60,4 +61,3 @@
       ]
     }
   }
-}
