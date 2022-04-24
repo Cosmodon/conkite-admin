@@ -1,6 +1,6 @@
 {
-  "short_name": "Conkite Admin Panel",
-  "name": "Create React App Sample",
+  "short_name": "ConKite Admin",
+  "name": "Admin Panel for ConKite",
   "icons": [
     {
       "src": "favicon.ico",

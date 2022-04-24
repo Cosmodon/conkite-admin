@@ -10,7 +10,7 @@ const theme = createMuiTheme({
 		subtitle2: {
 			fontFamily: "Montserrat, sans-serif",
 			textTransform: "uppercase",
-			color: "#0e4b87"
+			color: "#6d6e71"
 		},
 
 		h1: {
@@ -41,7 +41,7 @@ const theme = createMuiTheme({
 	palette: {
 		primary: {
 			light: "#fff",
-			main: "#ff1700",
+			main: "#EF3340",
 			// dark: '#1B365D',
 			contrastText: "#fff"
 		},
