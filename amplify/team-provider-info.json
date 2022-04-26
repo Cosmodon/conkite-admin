@@ -1,0 +1,20 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-newadmin-staging-30219-authRole",
+      "UnauthRoleArn": "arn:aws:iam::748717761284:role/amplify-newadmin-staging-30219-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::748717761284:role/amplify-newadmin-staging-30219-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-newadmin-staging-30219-deployment",
+      "UnauthRoleName": "amplify-newadmin-staging-30219-unauthRole",
+      "StackName": "amplify-newadmin-staging-30219",
+      "StackId": "arn:aws:cloudformation:us-east-1:748717761284:stack/amplify-newadmin-staging-30219/49943860-c50d-11ec-b6e3-0a0c7dffbd99",
+      "AmplifyAppId": "d15jx0vhi1iix5"
+    },
+    "categories": {
+      "auth": {
+        "NewAdmin": {}
+      }
+    }
+  }
+}
