@@ -18,7 +18,7 @@
     "dateformat": "^3.0.3",
     "formik": "^2.2.9",
     "material-table": "^1.69.3",
-    "mobx": "^4.15.7",
+    "mobx": "^6.5.0",
     "mobx-react": "^4.4.3",
     "mobx-react-lite": "^1.5.2",
     "mobx-router": "0.0.20",
