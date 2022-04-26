@@ -2,7 +2,7 @@ import React from "react";
 import { inject, observer } from "mobx-react";
 import MaterialTable from "material-table";
 import { DatePicker } from "@material-ui/pickers";
-import { Typography } from "@material-ui/core";
+import { MenuItem, Select, Typography } from "@material-ui/core";
 import { toJS } from "mobx";
 import { formatDate, formatDateMMDDYYYYfromYYYYMMDD, correctTimezone, saveChangeDateCurry } from "../libs/common";
 import PaymentsNotesTabs from "./PaymentOrNotesTabs";
@@ -50,20 +50,42 @@ class App extends React.Component<{
 				columns={[
 					{
 						cellStyle: { width: "10%" },
-						title: "id",
+						title: "ID",
 						field: "corrlinks_id",
 						defaultSort: "desc",
 						editable: "onAdd",
 						type: "numeric" // string with only 0-9, leading 0 allowed
 					},
 					{
-						title: "name",
+						title: "NAME",
 						field: "name",
 						defaultSort: "desc",
 						editable: "always"
 					},
 					{
-						title: "messaging expiration date",
+						title: "DATE CREATED",
+						field: "date_created",
+						defaultSort: "desc",
+						editable: "always"
+					},
+				 	{
+					 	title: "INMATE STATUS",
+					 	field: "status",
+					 	defaultSort: "desc",
+					 	editable: "always",
+					 	editComponent: props => (
+					 		<Select
+					 			value={props.value}
+					 			onChange={event => {
+					 				console.log(event);
+					 				return props.onChange(event.target.value);
+					 			}}>
+					 			{statuses.map((a, i) => <MenuItem key={i} value={a.value}>{a.text}</MenuItem>)}
+					 		</Select>
+					 	)
+					},
+					{
+						title: "MESSAGING SUBSCRIPTION",
 						field: "date_subscription_ends",
 						defaultSort: "desc",
 						editable: "always",
@@ -78,32 +100,32 @@ class App extends React.Component<{
 							return <DatePicker value={correctTimezone(props.value)} onChange={saveChangeDateCurry(props)} />;
 						}
 					},
+					//{
+					//	title: "Inmate Status",
+					//	field: "date_subscription_ends",
+					//	defaultSort: "desc",
+					//	editable: "never",
+					//	render: props => {
+					//		const color = subscribed(props.date_subscription_ends) ? "red" : "green";
+					//		return <Typography style={{ color }}>{color === "red" ? "UNPAID" : "PAID"}</Typography>;
+					//	}
+					//},
+					//{
+					//	title: "phonebook expiration date",
+					//	field: "date_phonebook_subscription_ends",
+					//	defaultSort: "desc",
+					//	editable: "always",
+					//	render: props => {
+					//		if (!props) return null;
+					//		const color = subscribed(props.date_phonebook_subscription_ends) ? "red" : "green";
+					//		return <Typography style={{ color }}>{formatDateMMDDYYYYfromYYYYMMDD(props.date_phonebook_subscription_ends)}</Typography>;
+					//	},
+					//	editComponent: props => {
+					//		return <DatePicker value={correctTimezone(props.value)} onChange={saveChangeDateCurry(props)} />;
+					//	}
+					//},
 					{
-						title: "Inmate Status",
-						field: "date_subscription_ends",
-						defaultSort: "desc",
-						editable: "never",
-						render: props => {
-							const color = subscribed(props.date_subscription_ends) ? "red" : "green";
-							return <Typography style={{ color }}>{color === "red" ? "UNPAID" : "PAID"}</Typography>;
-						}
-					},
-					{
-						title: "phonebook expiration date",
-						field: "date_phonebook_subscription_ends",
-						defaultSort: "desc",
-						editable: "always",
-						render: props => {
-							if (!props) return null;
-							const color = subscribed(props.date_phonebook_subscription_ends) ? "red" : "green";
-							return <Typography style={{ color }}>{formatDateMMDDYYYYfromYYYYMMDD(props.date_phonebook_subscription_ends)}</Typography>;
-						},
-						editComponent: props => {
-							return <DatePicker value={correctTimezone(props.value)} onChange={saveChangeDateCurry(props)} />;
-						}
-					},
-					{
-						title: "horoscope expiration date",
+						title: "HOROSCOPE SUBSCRIPTION",
 						field: "date_horoscope_subscription_ends",
 						defaultSort: "desc",
 						editable: "always",
@@ -117,7 +139,7 @@ class App extends React.Component<{
 						}
 					},
 					{
-						title: "news expiration date",
+						title: "NEWS SUBSCRIPTION",
 						field: "date_news_subscription_ends",
 						defaultSort: "desc",
 						editable: "always",
@@ -131,7 +153,7 @@ class App extends React.Component<{
 						}
 					},
 					{
-						title: "sports expiration date",
+						title: "SPORTS SUBSCRIPTION",
 						field: "date_sports_subscription_ends",
 						defaultSort: "desc",
 						editable: "always",
@@ -145,7 +167,7 @@ class App extends React.Component<{
 						}
 					},
 					{
-						title: "investments expiration date",
+						title: "INVESTMENTS SUBSCRIPTION",
 						field: "date_investments_subscription_ends",
 						defaultSort: "desc",
 						editable: "always",
@@ -159,7 +181,7 @@ class App extends React.Component<{
 						}
 					},
 					{
-						title: "Conkite Credits",
+						title: "ConKite ESCROW",
 						field: "credits",
 						defaultSort: "desc",
 						editable: "always",
@@ -173,13 +195,13 @@ class App extends React.Component<{
 					//	initialEditValue: 15,
 					//},
 					{
-						title: "Email",
+						title: "EMAIL",
 						field: "corrlinks_account",
 						defaultSort: "desc",
 						editable: "always"
 					},
 					{
-						title: "Prison",
+						title: "PRISON",
 						field: "location",
 						defaultSort: "desc",
 						editable: "always"
@@ -208,7 +230,7 @@ class App extends React.Component<{
 					//	)
 					//},
 					{
-						title: "Release Date",
+						title: "RELEASE DATE",
 						field: "date_release",
 						defaultSort: "desc",
 						editable: "onUpdate",
@@ -220,7 +242,7 @@ class App extends React.Component<{
 						}
 					},
 					{
-						title: "Phoonebook Upgrqde Start Date",
+						title: "Phonebook Update Window Start",
 						field: "adhoc_phonebook_edit_window_date_start",
 						defaultSort: "desc",
 						editable: "onUpdate",
@@ -232,7 +254,7 @@ class App extends React.Component<{
 						}
 					},
 					{
-						title: "Phoonebook Upgrade End Date",
+						title: "Phonebook Update Window End",
 						field: "adhoc_phonebook_edit_window_date_end",
 						defaultSort: "desc",
 						editable: "onUpdate",
@@ -248,22 +270,6 @@ class App extends React.Component<{
 					//	field: "corrlinks_account",
 					//	defaultSort: "desc",
 					//	editable: "always"
-					// },
-					// {
-					// 	title: "Server Status",
-					// 	field: "status",
-					// 	defaultSort: "desc",
-					// 	editable: "always",
-					// 	editComponent: props => (
-					// 		<Select
-					// 			value={props.value}
-					// 			onChange={event => {
-					// 				console.log(event);
-					// 				return props.onChange(event.target.value);
-					// 			}}>
-					// 			{statuses.map((a, i) => <MenuItem key={i} value={a.value}>{a.text}</MenuItem>)}
-					// 		</Select>
-					// 	)
 					// },
 				]}
 				editable={{
