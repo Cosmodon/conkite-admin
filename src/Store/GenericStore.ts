@@ -1,4 +1,5 @@
 import { sendNotification, arrayToMap } from "../libs/common";
+// @ts-ignore
 import { configure, observable, decorate, action, runInAction } from "mobx";
 configure({ enforceActions: "observed" });
 

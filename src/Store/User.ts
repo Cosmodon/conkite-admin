@@ -4,7 +4,6 @@ export interface IUser {
 	name: string;
 	status: string;
 	location: string;
-	phonebook_entries_allowed: number;
 	date_created: string;
 	date_released: string;
 	date_subscription_ends: string;
@@ -15,7 +14,6 @@ export class User implements IUser {
 	name: string;
 	status: string;
 	location: string;
-	phonebook_entries_allowed: number;
 	date_created: string;
 	date_released: string;
 	date_subscription_ends: string;

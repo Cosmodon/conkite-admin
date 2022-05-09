@@ -1,6 +1,6 @@
 {
-  "short_name": "ConKite Admin",
-  "name": "Admin Panel for ConKite",
+  "short_name": "ConKite Admin Panel",
+  "name": "Conkite Admin Panel",
   "icons": [
     {
       "src": "favicon.ico",
@@ -10,6 +10,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
+  "theme_color": "#1B365D",
   "background_color": "#ffffff"
 }
