@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from "react";
 import { inject, observer } from "mobx-react";
 import { DatePicker } from "@material-ui/pickers";

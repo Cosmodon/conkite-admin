@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState, useEffect } from "react";
 import MaterialTable from "material-table";
 import { CircularProgress, TextField } from "@material-ui/core";

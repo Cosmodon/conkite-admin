@@ -54,6 +54,7 @@ export const PhonebookTest: React.FC<Props> = props => {
 			<>
 				<Autocomplete
 					id="corrlinks_id"
+					// @ts-ignore
 					onChange={(e, user) => setCorrlinks_id(user ? user.corrlinks_id : "")}
 					options={users}
 					getOptionLabel={o => `${o.name} ${o.corrlinks_id}`}
