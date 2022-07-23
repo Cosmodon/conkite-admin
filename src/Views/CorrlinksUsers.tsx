@@ -57,13 +57,13 @@ class App extends React.Component<{
 						type: "numeric" // string with only 0-9, leading 0 allowed
 					},
 					{
-						title: "name",
+						title: "NAME",
 						field: "name",
 						defaultSort: "desc",
 						editable: "always"
 					},
 					{
-						title: "messaging expiration date",
+						title: "MESSAGING SUBSCRIPTION",
 						field: "date_subscription_ends",
 						defaultSort: "desc",
 						editable: "always",
@@ -79,7 +79,7 @@ class App extends React.Component<{
 						}
 					},
 					{
-						title: "Inmate Status",
+						title: "STATUS",
 						field: "date_subscription_ends",
 						defaultSort: "desc",
 						editable: "never",
@@ -88,22 +88,27 @@ class App extends React.Component<{
 							return <Typography style={{ color }}>{color === "red" ? "UNPAID" : "PAID"}</Typography>;
 						}
 					},
-					{
-						title: "phonebook expiration date",
-						field: "date_phonebook_subscription_ends",
+					{	title: "DATE CREATED",
+						field: "date_created",
 						defaultSort: "desc",
-						editable: "always",
-						render: props => {
-							if (!props) return null;
-							const color = subscribed(props.date_phonebook_subscription_ends) ? "red" : "green";
-							return <Typography style={{ color }}>{formatDateMMDDYYYYfromYYYYMMDD(props.date_phonebook_subscription_ends)}</Typography>;
-						},
-						editComponent: props => {
-							return <DatePicker value={correctTimezone(props.value)} onChange={saveChangeDateCurry(props)} />;
-						}
+						editable: "never"
 					},
+					//{
+					//	title: "phonebook expiration date",
+					//	field: "date_phonebook_subscription_ends",
+					//	defaultSort: "desc",
+					//	editable: "always",
+					//	render: props => {
+					//		if (!props) return null;
+					//		const color = subscribed(props.date_phonebook_subscription_ends) ? "red" : "green";
+					//		return <Typography style={{ color }}>{formatDateMMDDYYYYfromYYYYMMDD(props.date_phonebook_subscription_ends)}</Typography>;
+					//	},
+					//	editComponent: props => {
+					//		return <DatePicker value={correctTimezone(props.value)} onChange={saveChangeDateCurry(props)} />;
+					//	}
+					//},
 					{
-						title: "horoscope expiration date",
+						title: "HOROSCOPE SUBSCRIPTION",
 						field: "date_horoscope_subscription_ends",
 						defaultSort: "desc",
 						editable: "always",
@@ -117,7 +122,7 @@ class App extends React.Component<{
 						}
 					},
 					{
-						title: "news expiration date",
+						title: "NEWS SUBSCRIPTION",
 						field: "date_news_subscription_ends",
 						defaultSort: "desc",
 						editable: "always",
@@ -131,7 +136,7 @@ class App extends React.Component<{
 						}
 					},
 					{
-						title: "sports expiration date",
+						title: "SPORTS SUBSCRIPTION",
 						field: "date_sports_subscription_ends",
 						defaultSort: "desc",
 						editable: "always",
@@ -145,7 +150,7 @@ class App extends React.Component<{
 						}
 					},
 					{
-						title: "investments expiration date",
+						title: "INVESTMENT SUBSCRIPTION",
 						field: "date_investments_subscription_ends",
 						defaultSort: "desc",
 						editable: "always",
@@ -159,7 +164,7 @@ class App extends React.Component<{
 						}
 					},
 					{
-						title: "Conkite Credits",
+						title: "ESCROW",
 						field: "credits",
 						defaultSort: "desc",
 						editable: "always",
@@ -173,13 +178,13 @@ class App extends React.Component<{
 					//	initialEditValue: 15,
 					//},
 					{
-						title: "Email",
+						title: "EMAIL",
 						field: "corrlinks_account",
 						defaultSort: "desc",
 						editable: "always"
 					},
 					{
-						title: "Prison",
+						title: "PRISON",
 						field: "location",
 						defaultSort: "desc",
 						editable: "always"
@@ -208,7 +213,7 @@ class App extends React.Component<{
 					//	)
 					//},
 					{
-						title: "Release Date",
+						title: "RELEASE DATE",
 						field: "date_release",
 						defaultSort: "desc",
 						editable: "onUpdate",
@@ -220,7 +225,7 @@ class App extends React.Component<{
 						}
 					},
 					{
-						title: "Phonebook Upgrade Start Date",
+						title: "PHONEBOOK UPDATE START DATE",
 						field: "adhoc_phonebook_edit_window_date_start",
 						defaultSort: "desc",
 						editable: "onUpdate",
@@ -232,7 +237,7 @@ class App extends React.Component<{
 						}
 					},
 					{
-						title: "Phoonebook Upgrade End Date",
+						title: "PHONEBOOK UPDATE END DATE",
 						field: "adhoc_phonebook_edit_window_date_end",
 						defaultSort: "desc",
 						editable: "onUpdate",
