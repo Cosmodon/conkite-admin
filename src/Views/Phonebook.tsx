@@ -91,7 +91,7 @@ const PhonebookUI: React.FC<Props> = props => {
 											return reject();
 										}
 										const saved = await phonebookStore.updatePhonebookEntry({ corrlinks_id, entry });
-										saved ? resolve() : reject();
+										saved ? resolve(null) : reject();
 									} catch (e) {
 										reject();
 									}
@@ -104,7 +104,7 @@ const PhonebookUI: React.FC<Props> = props => {
 									entry.mobile = "";
 									try {
 										const saved = await phonebookStore.updatePhonebookEntry({ corrlinks_id, entry });
-										saved ? resolve() : reject();
+										saved ? resolve(null) : reject();
 									} catch (e) {
 										reject();
 									}
