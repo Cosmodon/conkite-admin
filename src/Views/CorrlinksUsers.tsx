@@ -220,7 +220,7 @@ class App extends React.Component<{
 						}
 					},
 					{
-						title: "Phoonebook Upgrqde Start Date",
+						title: "Phonebook Upgrade Start Date",
 						field: "adhoc_phonebook_edit_window_date_start",
 						defaultSort: "desc",
 						editable: "onUpdate",
@@ -232,7 +232,7 @@ class App extends React.Component<{
 						}
 					},
 					{
-						title: "Phoonebook Upgrade End Date",
+						title: "Phonebook Upgrade End Date",
 						field: "adhoc_phonebook_edit_window_date_end",
 						defaultSort: "desc",
 						editable: "onUpdate",
