@@ -50,7 +50,7 @@ class App extends React.Component<{
 				columns={[
 					{
 						cellStyle: { width: "10%" },
-						title: "id",
+						title: "ID",
 						field: "corrlinks_id",
 						defaultSort: "desc",
 						editable: "onAdd",
@@ -92,6 +92,54 @@ class App extends React.Component<{
 						field: "date_created",
 						defaultSort: "desc",
 						editable: "never"
+					},
+					{
+						title: "EMAIL",
+						field: "corrlinks_account",
+						defaultSort: "desc",
+						editable: "always"
+					},
+					{
+						title: "PRISON",
+						field: "location",
+						defaultSort: "desc",
+						editable: "always"
+					},
+					{
+						title: "RELEASE DATE",
+						field: "date_release",
+						defaultSort: "desc",
+						editable: "onUpdate",
+						render: props => {
+							return <Typography>{formatDate(props ? formatDateMMDDYYYYfromYYYYMMDD(props.date_release) : "-")}</Typography>;
+						},
+						editComponent: props => {
+							return <DatePicker value={correctTimezone(props.value)} onChange={saveChangeDateCurry(props)} />;
+						}
+					},
+					{
+						title: "PHONEBOOK UPDATE START DATE",
+						field: "adhoc_phonebook_edit_window_date_start",
+						defaultSort: "desc",
+						editable: "onUpdate",
+						render: props => {
+							return <Typography>{formatDate(props ? formatDateMMDDYYYYfromYYYYMMDD(props.adhoc_phonebook_edit_window_date_start) : "-")}</Typography>;
+						},
+						editComponent: props => {
+							return <DatePicker value={correctTimezone(props.value)} onChange={saveChangeDateCurry(props)} />;
+						}
+					},
+					{
+						title: "PHONEBOOK UPDATE END DATE",
+						field: "adhoc_phonebook_edit_window_date_end",
+						defaultSort: "desc",
+						editable: "onUpdate",
+						render: props => {
+							return <Typography>{formatDate(props ? formatDateMMDDYYYYfromYYYYMMDD(props.adhoc_phonebook_edit_window_date_end) : "-")}</Typography>;
+						},
+						editComponent: props => {
+							return <DatePicker value={correctTimezone(props.value)} onChange={saveChangeDateCurry(props)} />;
+						}
 					},
 					//{
 					//	title: "phonebook expiration date",
@@ -177,18 +225,6 @@ class App extends React.Component<{
 					//	editable: "always",
 					//	initialEditValue: 15,
 					//},
-					{
-						title: "EMAIL",
-						field: "corrlinks_account",
-						defaultSort: "desc",
-						editable: "always"
-					},
-					{
-						title: "PRISON",
-						field: "location",
-						defaultSort: "desc",
-						editable: "always"
-					},
 					//{
 					//	title: "Notes",
 					//	field: "notes",
@@ -212,42 +248,6 @@ class App extends React.Component<{
 					//		</Select>
 					//	)
 					//},
-					{
-						title: "RELEASE DATE",
-						field: "date_release",
-						defaultSort: "desc",
-						editable: "onUpdate",
-						render: props => {
-							return <Typography>{formatDate(props ? formatDateMMDDYYYYfromYYYYMMDD(props.date_release) : "-")}</Typography>;
-						},
-						editComponent: props => {
-							return <DatePicker value={correctTimezone(props.value)} onChange={saveChangeDateCurry(props)} />;
-						}
-					},
-					{
-						title: "PHONEBOOK UPDATE START DATE",
-						field: "adhoc_phonebook_edit_window_date_start",
-						defaultSort: "desc",
-						editable: "onUpdate",
-						render: props => {
-							return <Typography>{formatDate(props ? formatDateMMDDYYYYfromYYYYMMDD(props.adhoc_phonebook_edit_window_date_start) : "-")}</Typography>;
-						},
-						editComponent: props => {
-							return <DatePicker value={correctTimezone(props.value)} onChange={saveChangeDateCurry(props)} />;
-						}
-					},
-					{
-						title: "PHONEBOOK UPDATE END DATE",
-						field: "adhoc_phonebook_edit_window_date_end",
-						defaultSort: "desc",
-						editable: "onUpdate",
-						render: props => {
-							return <Typography>{formatDate(props ? formatDateMMDDYYYYfromYYYYMMDD(props.adhoc_phonebook_edit_window_date_end) : "-")}</Typography>;
-						},
-						editComponent: props => {
-							return <DatePicker value={correctTimezone(props.value)} onChange={saveChangeDateCurry(props)} />;
-						}
-					},
 					// {
 					//	title: "Email",
 					//	field: "corrlinks_account",
