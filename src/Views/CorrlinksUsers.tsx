@@ -314,7 +314,7 @@ class App extends React.Component<{
 							}
 						})
 				}}
-				detailPanel={props => <PaymentsNotesTabs user={toJS(props)} />}
+				detailPanel={props => <{PaymentsNotesMessagesTabs} user={toJS(props)} />}
 			/>
 		);
 	}

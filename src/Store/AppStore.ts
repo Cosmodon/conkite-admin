@@ -11,16 +11,21 @@ export default class AppStore {
 	@observable paymentNotification: {} = null;
 	@observable notes: any[] = [];
 	@observable products: any[] = [];
+	@observable isMessagesLoading: boolean = false;
+	@observable messages: any[] = [];
+	
 	@observable isLoading: {
 		users: boolean;
 		payments: boolean;
 		notes: boolean;
 		products: boolean;
+		messages: boolean;
 	} = {
 		users: false,
 		payments: false,
 		notes: false,
-		products: false
+		products: false,
+		messages: false
 	};
 
 	@action.bound
@@ -161,6 +166,25 @@ export default class AppStore {
 			});
 			this.setLoading(stateVariable, false);
 			notes && (this.notes = [...notes]);
+		} catch (e) {
+			console.log(fn, e);
+		}
+		this.setLoading(stateVariable, false);
+		return null;
+	};
+
+	@action.bound
+	fetchMessages = async () => {
+		const fn = "fetchMessages";
+		const stateVariable = "messages";
+		try {
+			this.setLoading(stateVariable, true);
+
+			const messages = await API.fetchMessages().catch(errors => {
+				console.log("there are some API errors", errors);
+			});
+			this.setLoading(stateVariable, false);
+			messages && (this.messages = [...messages]);
 		} catch (e) {
 			console.log(fn, e);
 		}
