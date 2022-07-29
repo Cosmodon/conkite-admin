@@ -7,7 +7,7 @@ import { Formik, FormikProps } from "formik";
 import { toJS } from "mobx";
 
 const MESSAGING = 2;
-const PHONEBOOK = 3;
+const ESCROW = 3;
 const ADHOC = 4;
 const HOROSCOPE = 5;
 const NEWS = 6;
@@ -78,7 +78,7 @@ class PaymentForm extends React.Component<{
 			case MESSAGING:
 				result = await this.props.store.app.submitPurchase(values);
 				break;
-			case PHONEBOOK:
+			case ESCROW:
 				result = await this.props.store.app.submitPurchase(values);
 				break;
 			case HOROSCOPE:
@@ -286,7 +286,7 @@ class PaymentForm extends React.Component<{
 											</>
 										)}
 
-										{(props.values.product_type === MESSAGING || props.values.product_type === PHONEBOOK || props.values.product_type === HOROSCOPE || props.values.product_type === NEWS || props.values.product_type === SPORTS) && (
+										{(props.values.product_type === MESSAGING || props.values.product_type === ESCROW || props.values.product_type === HOROSCOPE || props.values.product_type === NEWS || props.values.product_type === SPORTS) && (
 											<>
 												<TableRow>
 													<TableCell>Months</TableCell>
