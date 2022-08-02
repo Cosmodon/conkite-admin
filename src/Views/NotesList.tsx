@@ -52,7 +52,7 @@ class NotesList extends React.Component<{
 							title: "Date Created",
 							field: "date_created",
 							defaultSort: "desc",
-							editable: "never"
+							editable: "always"
 						}
 					]}
 					editable={{

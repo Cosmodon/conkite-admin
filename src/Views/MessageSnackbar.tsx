@@ -15,7 +15,7 @@ function TransitionUp(props) {
 }
 const styles = {
 	success: {
-		backgroundColor: "green"
+		backgroundColor: "#1B365D"
 	},
 	info: {
 		backgroundColor: "lightblue"
