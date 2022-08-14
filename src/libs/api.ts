@@ -201,7 +201,7 @@ class API {
 	};
 
 	deleteUserNote = async ({ corrlinks_id, note_id }, options?): Promise<any> => {
-		await this.api.delete(`/users/${corrlinks_id}/notes/${note_id}`, options);
+    await this.api.delete(`/users/${corrlinks_id}/notes/${note_id}`, options);
 		return true;
 	};
 }
