@@ -12,6 +12,7 @@ import { inject, observer } from "mobx-react";
 import API from "../libs/api";
 import { Select, MenuItem } from "@material-ui/core";
 import { PhonebookTest } from "./PhonebookTest";
+import { SendMessageToCorrlinks } from "./SendMessageToCorrlinks";
 
 interface TabPanelProps {
 	children?: React.ReactNode;
@@ -80,6 +81,12 @@ class SimpleTabs extends React.Component<{
 							href="#phonebook-test"
 							{...a11yProps(3)}
 						/>
+						<Tab
+							label="Message To Corrlnks"
+							value="send-message-to-corrlinks"
+							href="#send-message-to-corrlinks"
+							{...a11yProps(3)}
+						/>
 					</Tabs>
 				</AppBar>
 
@@ -113,6 +120,9 @@ class SimpleTabs extends React.Component<{
 				</TabPanel>
 				<TabPanel value={value} index={"phonebook-test"}>
 					<PhonebookTest />
+				</TabPanel>
+				<TabPanel value={value} index={"send-message-to-corrlinks"}>
+					<SendMessageToCorrlinks />
 				</TabPanel>
 			</div>
 		);

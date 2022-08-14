@@ -87,6 +87,11 @@ class API {
 		return result;
 	};
 
+	sendMessageToUser = async ({ corrlinks_id, subject, body }, options?): Promise<any> => {
+		const result = await this.api.post(`/admin/${corrlinks_id}/message`, { subject, body }, options);
+		return result;
+	};
+
 	deleteUserPayment = async ({corrlinks_id, payment_id}, options?): Promise<any> => {
 		const result = await this.api.delete(`/users/${corrlinks_id}/payments/${payment_id}`, options);
 		return result;

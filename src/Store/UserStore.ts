@@ -1,17 +1,17 @@
 import { observable, action } from "mobx";
 import { User } from "./User";
-import API from '../libs/api';
+import API from "../libs/api";
 
 export default class UserStore {
 	@observable users: User[] = [];
 	@observable isLoading: boolean = false;
 
-	constructor(){
+	constructor() {
 		this.fetchUsers();
 	}
 
 	@action.bound
-	setLoading = async (value) => {
+	setLoading = async value => {
 		this.isLoading = value;
 	};
 
@@ -21,11 +21,11 @@ export default class UserStore {
 		try {
 			this.setLoading(true);
 
-			const users: void|Array<any> = await API.fetchUsers().catch(errors => {
+			const users: void | Array<any> = await API.fetchUsers().catch(errors => {
 				console.log("there are some API errors", errors);
 			});
 			this.setLoading(false);
-			users && (this.users = [...(User.createFromArray(users))]);
+			users && (this.users = [...User.createFromArray(users)]);
 		} catch (e) {
 			console.log(fn, e);
 		}
@@ -39,10 +39,7 @@ export default class UserStore {
 		try {
 			this.setLoading(true);
 			await API.updateUser({ corrlinks_id, user });
-			this.users = [
-				...this.users.filter(a => a.corrlinks_id !== user.corrlinks_id),
-				user
-			];
+			this.users = [...this.users.filter(a => a.corrlinks_id !== user.corrlinks_id), user];
 			this.setLoading(false);
 		} catch (e) {
 			console.log(fn, e);
@@ -81,5 +78,21 @@ export default class UserStore {
 			this.setLoading(false);
 		}
 		return [];
+	};
+
+	@action.bound
+	sendMessageToUser = async ({ corrlinksId, subject, body }) => {
+		const fn = "sendMessageToUser";
+		let result: boolean = false;
+		try {
+			this.setLoading(true);
+			const response = await API.sendMessageToUser({ corrlinks_id: corrlinksId, subject, body });
+			if (response?.status === 200) result = true;
+			this.setLoading(false);
+		} catch (e) {
+			console.log(fn, e);
+			this.setLoading(false);
+		}
+		return result;
 	};
 }
