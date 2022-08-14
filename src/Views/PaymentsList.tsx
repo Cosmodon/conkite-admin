@@ -19,6 +19,10 @@ class PaymentsList extends React.Component<{
 		const payments = this.props.store.app.payments.filter(
 			a => a.corrlinks_id === this.props.user.corrlinks_id
 		);
+		const onRowDeleteHandler = async data => {
+			await this.props.store.app.deletePayment({ corrlinks_id: this.props.user.corrlinks_id, payment_id: data.id });
+		}
+
 		return (
 			<React.Fragment>
 				<MaterialTable
@@ -64,6 +68,9 @@ class PaymentsList extends React.Component<{
 							editable: "always"
 						}
 					]}
+					editable={{
+						onRowDelete: onRowDeleteHandler
+					}}
 				/>
 			</React.Fragment>
 		);

@@ -87,6 +87,11 @@ class API {
 		return result;
 	};
 
+	deleteUserPayment = async ({corrlinks_id, payment_id}, options?): Promise<any> => {
+		const result = await this.api.delete(`/users/${corrlinks_id}/payments/${payment_id}`, options);
+		return result;
+	};
+
 	postPurchase = async (pd: PurchaseDetails, options?): Promise<any> => {
 		const { amount, comment } = pd;
 		const result = await this.api.post(`/user/${pd.corrlinks_id}/purchase/${pd.product_instance_id}`, { amount, comment }, options);

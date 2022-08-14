@@ -150,6 +150,24 @@ export default class AppStore {
 	};
 
 	@action.bound
+	deletePayment = async ({ corrlinks_id, payment_id }) => {
+		const fn = "deletePayment";
+		const stateVariable = "payments";
+		try {
+			this.setLoading(stateVariable, true);
+			const results = await API.deleteUserPayment({ corrlinks_id, payment_id });
+      if (results.status === 200) {
+        this.payments = this.payments.filter(a => !(a.corrlinks_id === corrlinks_id && a.id === payment_id));
+      }
+			this.setLoading(stateVariable, false);
+		} catch (e) {
+			console.log(fn, e);
+			this.setLoading(stateVariable, false);
+		}
+		return [];
+	};
+
+	@action.bound
 	fetchUserNotes = async ({ corrlinks_id }) => {
 		const fn = "fetchUserNotes";
 		const stateVariable = "notes";
