@@ -33,7 +33,7 @@ class NotesList extends React.Component<{
 						// 	toolbar: false,
 						columnsButton: true
 					}}
-					isLoading={this.props.store.app.isNotesLoading}
+					isLoading={this.props.store.app.isLoading.notes}
 					title={`Notes`}
 					data={notes}
 					columns={[

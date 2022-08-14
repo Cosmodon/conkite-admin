@@ -163,6 +163,24 @@ class API {
 		return [];
 	};
 
+	fetchMessagesForCorrlinks = async ({ corrlinks_id }, options?): Promise<any[]> => {
+		const response = await this.api.get(`users/${corrlinks_id}/messages-for-corrlinks`, options);
+		if (response.data && response.data["data"]) {
+			const data: [] = response.data["data"] as [];
+			return [...data];
+		}
+		return [];
+	};
+
+	fetchMessagesForSociety = async ({ corrlinks_id }, options?): Promise<any[]> => {
+		const response = await this.api.get(`users/${corrlinks_id}/messages-for-society`, options);
+		if (response.data && response.data["data"]) {
+			const data: [] = response.data["data"] as [];
+			return [...data];
+		}
+		return [];
+	};
+
 	fetchProducts = async (options?): Promise<any[]> => {
 		const response = await this.api.get(`products`, options);
 		if (response.data && response.data["data"]) {

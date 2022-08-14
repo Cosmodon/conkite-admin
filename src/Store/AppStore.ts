@@ -11,16 +11,22 @@ export default class AppStore {
 	@observable paymentNotification: {} = null;
 	@observable notes: any[] = [];
 	@observable products: any[] = [];
+	@observable messagesForCorrlinks: any[] = [];
+	@observable messagesForSociety: any[] = [];
 	@observable isLoading: {
 		users: boolean;
 		payments: boolean;
 		notes: boolean;
 		products: boolean;
+    messagesForCorrlinks: boolean;
+    messagesForSociety: boolean;
 	} = {
 		users: false,
 		payments: false,
 		notes: false,
-		products: false
+		products: false,
+    messagesForCorrlinks: false,
+    messagesForSociety: false,
 	};
 
 	@action.bound
@@ -179,6 +185,44 @@ export default class AppStore {
 			});
 			this.setLoading(stateVariable, false);
 			notes && (this.notes = [...notes]);
+		} catch (e) {
+			console.log(fn, e);
+		}
+		this.setLoading(stateVariable, false);
+		return null;
+	};
+
+	@action.bound
+	fetchMessagesForCorrlinks = async ({ corrlinks_id }) => {
+		const fn = "fetchMessagesForCorrlinks";
+		const stateVariable = "messagesForCorrlinks";
+		try {
+			this.setLoading(stateVariable, true);
+
+			const messages = await API.fetchMessagesForCorrlinks({ corrlinks_id }).catch(errors => {
+				console.log("there are some API errors", errors);
+			});
+			this.setLoading(stateVariable, false);
+			messages && (this.messagesForCorrlinks = [...messages]);
+		} catch (e) {
+			console.log(fn, e);
+		}
+		this.setLoading(stateVariable, false);
+		return null;
+	};
+
+	@action.bound
+	fetchMessagesForSociety = async ({ corrlinks_id }) => {
+		const fn = "fetchMessagesForSociety";
+		const stateVariable = "messagesForSociety";
+		try {
+			this.setLoading(stateVariable, true);
+
+			const messages = await API.fetchMessagesForSociety({ corrlinks_id }).catch(errors => {
+				console.log("there are some API errors", errors);
+			});
+			this.setLoading(stateVariable, false);
+			messages && (this.messagesForSociety = [...messages]);
 		} catch (e) {
 			console.log(fn, e);
 		}
