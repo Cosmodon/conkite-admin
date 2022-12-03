@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.js": "/conkite-admin/static/js/main.0ecc3d15.chunk.js",
+    "main.js.map": "/conkite-admin/static/js/main.0ecc3d15.chunk.js.map",
+    "runtime-main.js": "/conkite-admin/static/js/runtime-main.bcc90c6e.js",
+    "runtime-main.js.map": "/conkite-admin/static/js/runtime-main.bcc90c6e.js.map",
+    "static/js/2.b41ab3c7.chunk.js": "/conkite-admin/static/js/2.b41ab3c7.chunk.js",
+    "static/js/2.b41ab3c7.chunk.js.map": "/conkite-admin/static/js/2.b41ab3c7.chunk.js.map",
+    "index.html": "/conkite-admin/index.html",
+    "precache-manifest.f9999d2445774b51d103134c18b24e82.js": "/conkite-admin/precache-manifest.f9999d2445774b51d103134c18b24e82.js",
+    "service-worker.js": "/conkite-admin/service-worker.js",
+    "static/js/2.b41ab3c7.chunk.js.LICENSE.txt": "/conkite-admin/static/js/2.b41ab3c7.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.bcc90c6e.js",
+    "static/js/2.b41ab3c7.chunk.js",
+    "static/js/main.0ecc3d15.chunk.js"
+  ]
+}
